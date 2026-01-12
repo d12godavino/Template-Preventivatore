@@ -1,0 +1,25 @@
+:root {
+  --primary: #2c7be5;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: var(--primary);
+}
+
+#loginBox {
+  max-width: 300px;
+  margin: 80px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#loginError {
+  color: red;
+  display: none;
+}
