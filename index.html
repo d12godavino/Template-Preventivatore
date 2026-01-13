@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Preventivatore Demo</title>
-<link rel="stylesheet" href="style.css">
-<script src="database.js"></script>
-</head>
-<body>
-
-<div id="loginBox">
-  <h2>Accesso riservato</h2>
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Accedi</button>
-  <p id="loginError">Credenziali errate</p>
-</div>
-
-<div id="app" style="display:none">
-<!DOCTYPE html>
-<html lang="it">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IL MATTONCINO S.R.L. - Preventivatore Edile</title>
+    <title>EdilPro S.r.l. - Preventivatore Edile (DEMO)</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-<body>
-    <div class="container">
+<body class="auth-hidden">
+    <!-- Overlay Login -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-card">
+            <img src="attached_assets/LOGO_DETTOFATTO_1768283639592.png" alt="DettoFatto" class="login-logo">
+            <h3>Accesso Riservato</h3>
+            <div class="form-group">
+                <input type="text" id="username" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="form-control" placeholder="Password">
+            </div>
+            <button id="loginBtn" class="btn btn--primary btn--lg" style="width: 100%;">ACCEDI</button>
+            <p id="loginError" class="login-error hidden">Credenziali errate</p>
+        </div>
+    </div>
+
+    <div class="container main-content">
         <header class="app-header">
             <div class="header-content">
                 <div class="logo-section">
                     <div class="logo-container">
-                        <img src="LOGO.jpg" alt="IL MATTONCINO S.R.L." class="company-logo">
+                        <img src="attached_assets/LOGO_DETTOFATTO_1768283639592.png" alt="DettoFatto" class="company-logo">
                     </div>
-                    <p>Preventivatore Edile Professionale</p>
+                    <p>Preventivatore Professionale</p>
                 </div>
             </div>
         </header>
@@ -47,23 +43,23 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">Nome Ditta</label>
-                    <input type="text" id="nomeDitta" class="form-control" value="IL MATTONCINO S.R.L.">
+                    <input type="text" id="nomeDitta" class="form-control" value="Servizi Professionali S.r.l.">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Indirizzo</label>
-                    <input type="text" id="indirizzoAzienda" class="form-control" value="Viale A. Costa, 62, Imola, 40026 (BO)">
+                    <input type="text" id="indirizzoAzienda" class="form-control" value="Via Centrale 50, 20100 Milano">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Telefono</label>
-                    <input type="tel" id="telefonoAzienda" class="form-control" value="+39 342 130 5313">
+                    <input type="tel" id="telefonoAzienda" class="form-control" value="+39 02 9876543">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input type="email" id="emailAzienda" class="form-control" value="ilmattoncinosrl@outlook.com">
+                    <input type="email" id="emailAzienda" class="form-control" value="info@serviziprofessionali.it">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Partita IVA</label>
-                    <input type="text" id="partitaIva" class="form-control" value="03590791202">
+                    <input type="text" id="partitaIva" class="form-control" value="12345678901">
                 </div>
                 <div class="form-group">
                     <label class="form-label">N° Preventivo</label>
@@ -77,8 +73,8 @@
             <h2>TITOLO PREVENTIVO</h2>
             <div class="form-group">
                 <label class="form-label">Titolo personalizzato (opzionale)</label>
-                <input type="text" id="titoloPreventivo" class="form-control" placeholder="Es: Ristrutturazione appartamento, Lavori di muratura, ecc...">
-                <small class="form-help">Se vuoto, sarà utilizzato "PREVENTIVO LAVORI EDILI"</small>
+                <input type="text" id="titoloPreventivo" class="form-control" placeholder="Es: Servizi consulenza, Progetto ABC, ecc.">
+                <small class="form-help">Se vuoto, sarà utilizzato "PREVENTIVO"</small>
             </div>
         </div>
 
@@ -88,23 +84,23 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">Nome/Ragione Sociale *</label>
-                    <input type="text" id="nomeCliente" class="form-control" placeholder="Nome cliente" required>
+                    <input type="text" id="nomeCliente" class="form-control" value="Marco Bianchi" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Indirizzo</label>
-                    <input type="text" id="indirizzoCliente" class="form-control" placeholder="Indirizzo cliente">
+                    <input type="text" id="indirizzoCliente" class="form-control" value="Via Verdi 22, 00100 Roma">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Telefono</label>
-                    <input type="tel" id="telefonoCliente" class="form-control" placeholder="Telefono cliente">
+                    <input type="tel" id="telefonoCliente" class="form-control" value="+39 06 1234567">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input type="email" id="emailCliente" class="form-control" placeholder="Email cliente">
+                    <input type="email" id="emailCliente" class="form-control" value="marco.bianchi@email.it">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Codice Fiscale / Partita IVA</label>
-                    <input type="text" id="cfPivaCliente" class="form-control" placeholder="CF o P.IVA cliente">
+                    <input type="text" id="cfPivaCliente" class="form-control" value="BNCMRC85B15H501Z">
                 </div>
             </div>
         </div>
@@ -141,6 +137,10 @@
             
             <div class="materiali-row-2">
                 <div class="form-group">
+                    <label class="form-label">Dimensioni</label>
+                    <input type="text" id="dimensioni" class="form-control" placeholder="Es: 3,00 x 2,40">
+                </div>
+                <div class="form-group">
                     <label class="form-label">Quantità</label>
                     <input type="number" id="quantita" class="form-control" min="0" step="0.01" placeholder="0">
                 </div>
@@ -149,7 +149,7 @@
                     <input type="number" id="prezzoUnitario" class="form-control" min="0" step="0.01" placeholder="0.00">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Unità Misura</label>
+                    <label class="form-label">Unità di Misura</label>
                     <select id="unitaMisura" class="form-control">
                         <option value="">Seleziona...</option>
                         <option value="mq">mq</option>
@@ -164,10 +164,6 @@
                     </select>
                     <input type="text" id="unitaMisuraCustom" class="form-control hidden" placeholder="Inserisci unità personalizzata">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Sconto %</label>
-                    <input type="number" id="sconto" class="form-control" min="0" max="100" step="0.1" value="0">
-                </div>
             </div>
             
             <div class="materiali-row-3">
@@ -180,16 +176,25 @@
         <!-- Tabella Preventivo -->
         <div class="card section-card">
             <h2>PREVENTIVO</h2>
+            
+            <div class="preset-demo-container">
+                <span class="preset-label">Esempi rapidi:</span>
+                <button class="btn btn--outline btn--sm preset-btn" onclick="caricaPresetElettricista()">Elettricista</button>
+                <button class="btn btn--outline btn--sm preset-btn" onclick="caricaPresetIdraulico()">Idraulico</button>
+                <button class="btn btn--outline btn--sm preset-btn" onclick="caricaPresetTecnico()">Tecnico</button>
+                <button class="btn btn--outline btn--sm preset-btn" onclick="caricaPresetServiziProfessionali()">Servizi Professionali</button>
+            </div>
+            
             <div class="table-container">
                 <table id="tabellaPreventivo" class="preventivo-table">
                     <thead>
                         <tr>
-                            <th>Descrizione</th>
-                            <th>U.M.</th>
-                            <th>Qtà</th>
-                            <th>Prezzo Unit. (€)</th>
-                            <th>Sconto %</th>
-                            <th>Importo (€)</th>
+                            <th>Descrizione della lavorazione</th>
+                            <th>Unità di Misura</th>
+                            <th>Dimensioni</th>
+                            <th>Quantità</th>
+                            <th>Prezzo Unitario (€)</th>
+                            <th>Importo Totale (€)</th>
                             <th>Azioni</th>
                         </tr>
                     </thead>
@@ -238,7 +243,7 @@
             <div class="form-grid">
                 <div class="form-group span-2">
                     <label class="form-label">Note finali</label>
-                    <textarea id="notePreventivo" class="form-control" rows="4">Eventuali ore in economia saranno contabilizzate al costo orario di € 37,00. Sono esclusi dal preventivo IVA, acqua ed energia elettrica.</textarea>
+                    <textarea id="notePreventivo" class="form-control" rows="4">Eventuali ore aggiuntive saranno contabilizzate separatamente. Sono esclusi dal preventivo eventuali costi accessori non specificati.</textarea>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Modalità di Pagamento</label>
@@ -280,11 +285,5 @@
     </div>
 
     <script src="app.js"></script>
-</body>
-</html>
-
-</div>
-
-<script src="app.js"></script>
 </body>
 </html>

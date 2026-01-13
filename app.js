@@ -1,25 +1,43 @@
-// IL MATTONCINO S.R.L. - Preventivatore Edile Professionale
-// Versione corretta con PDF, logo e timbro
+// EdilPro S.r.l. - Preventivatore Edile Professionale (DEMO COMMERCIALE)
+// Versione demo con dati fittizi di esempio
 
 // Carica il database
 let databaseEdile = [];
 let vociPreventivo = [];
-let contatorePrevenetivo = 1;
+let contatorePrevenetivo = parseInt(localStorage.getItem('ultimoNumeroPreventivo')) || 1;
 
 // Funzione per caricare il database dal CSV
 async function caricaDatabase() {
     try {
-        const response = await fetch('attached_assets/database_edile_completo_1759919082996.csv');
+        // Su GitHub Pages il percorso deve essere relativo alla radice del sito
+        // o corretto rispetto alla posizione del file app.js
+        const databasePath = 'attached_assets/database_edile_completo_1759919082996.csv';
+        const response = await fetch(databasePath);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const csvText = await response.text();
-        const lines = csvText.split('\n');
-        const headers = lines[0].split(',');
+        // Gestione corretta dei ritorni a capo per diversi sistemi operativi
+        const lines = csvText.split(/\r?\n/);
+        
+        if (lines.length === 0) return;
+        
+        // Pulizia degli header (rimozione di eventuali virgolette o spazi extra)
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^["']|["']$/g, ''));
+        
+        databaseEdile = []; // Reset database
         
         for (let i = 1; i < lines.length; i++) {
-            if (lines[i].trim()) {
-                const values = lines[i].split(',');
+            const line = lines[i].trim();
+            if (line) {
+                // Gestione base dei campi CSV (split semplice, assumendo che i dati non contengano virgole)
+                const values = line.split(',');
                 const obj = {};
                 headers.forEach((header, index) => {
-                    obj[header.trim()] = values[index]?.trim() || '';
+                    let val = values[index] || '';
+                    obj[header] = val.trim().replace(/^["']|["']$/g, '');
                 });
                 databaseEdile.push(obj);
             }
@@ -27,6 +45,7 @@ async function caricaDatabase() {
         console.log(`✅ Database caricato: ${databaseEdile.length} voci`);
     } catch (error) {
         console.error('Errore caricamento database:', error);
+        // Fallback: se il fetch fallisce, proviamo un percorso alternativo o mostriamo errore all'utente
     }
 }
 
@@ -44,19 +63,53 @@ function formatCurrency(amount) {
 
 // Inizializzazione dell'applicazione
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🏗️ IL MATTONCINO S.R.L. - Inizializzazione...');
+    console.log('🏗️ EdilPro S.r.l. - DEMO COMMERCIALE - Inizializzazione...');
+    
+    // Gestione Login
+    const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginOverlay = document.getElementById('loginOverlay');
+    const loginError = document.getElementById('loginError');
+
+    loginBtn.addEventListener('click', function() {
+        const user = usernameInput.value;
+        const pass = passwordInput.value;
+
+        // Credenziali: admin / 1212
+        if (user === 'admin' && pass === '1212') {
+            document.body.classList.remove('auth-hidden');
+            loginOverlay.classList.add('hidden');
+        } else {
+            loginError.classList.remove('hidden');
+        }
+    });
+
+    // Permetti invio con tasto Enter
+    passwordInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
+
     await caricaDatabase();
     inizializzaApp();
     caricaCategorie();
     impostaDataOggi();
     impostaEventListeners();
-    console.log('✅ Applicazione pronta!');
+    caricaDatiDemo();
+    console.log('✅ Applicazione DEMO pronta!');
 });
 
 function inizializzaApp() {
     const numeroPreventivo = document.getElementById('numeroPreventivo');
     if (numeroPreventivo) {
         numeroPreventivo.value = String(contatorePrevenetivo).padStart(3, '0');
+        
+        // Se l'utente modifica manualmente il numero
+        numeroPreventivo.addEventListener('change', function() {
+            const nuovoValore = parseInt(this.value);
+            if (!isNaN(nuovoValore)) {
+                contatorePrevenetivo = nuovoValore;
+                localStorage.setItem('ultimoNumeroPreventivo', contatorePrevenetivo);
+            }
+        });
     }
 }
 
@@ -290,9 +343,9 @@ function aggiungiVocePreventivo() {
         return;
     }
     
+    const dimensioni = document.getElementById('dimensioni').value.trim();
     const quantita = parseFloat(document.getElementById('quantita').value) || 0;
     const prezzoUnitario = parseFloat(document.getElementById('prezzoUnitario').value) || 0;
-    const sconto = parseFloat(document.getElementById('sconto').value) || 0;
     
     let unitaMisura = document.getElementById('unitaMisura').value;
     if (unitaMisura === 'custom') {
@@ -304,14 +357,14 @@ function aggiungiVocePreventivo() {
         return;
     }
     
-    const importoTotale = quantita * prezzoUnitario * (1 - sconto / 100);
+    const importoTotale = quantita * prezzoUnitario;
     
     const voce = {
         descrizione,
         unitaMisura: unitaMisura || '-',
+        dimensioni: dimensioni || '-',
         quantita,
         prezzoUnitario,
-        sconto,
         importo: importoTotale
     };
     
@@ -332,9 +385,9 @@ function aggiornaTabella() {
         tr.innerHTML = `
             <td>${voce.descrizione}</td>
             <td>${voce.unitaMisura}</td>
+            <td>${voce.dimensioni}</td>
             <td>${voce.quantita}</td>
             <td>${formatCurrency(voce.prezzoUnitario)}</td>
-            <td>${voce.sconto}%</td>
             <td>${formatCurrency(voce.importo)}</td>
             <td>
                 <button class="btn btn--danger" onclick="rimuoviVoce(${index})">🗑️</button>
@@ -376,11 +429,116 @@ function calcolaTotali() {
 
 function pulisciCampiMateriali() {
     document.getElementById('descrizionePersonalizzata').value = '';
+    document.getElementById('dimensioni').value = '';
     document.getElementById('quantita').value = '';
     document.getElementById('prezzoUnitario').value = '';
-    document.getElementById('sconto').value = '0';
     document.getElementById('categoria').value = '';
     resetSottocategorieFields();
+}
+
+function caricaDatiDemo() {
+    const vociDemo = [
+        {
+            descrizione: 'Consulenza professionale iniziale e analisi requisiti',
+            unitaMisura: 'ore',
+            dimensioni: '-',
+            quantita: 8,
+            prezzoUnitario: 75.00,
+            importo: 600.00
+        },
+        {
+            descrizione: 'Sviluppo e implementazione progetto fase 1',
+            unitaMisura: 'a corpo',
+            dimensioni: '-',
+            quantita: 1,
+            prezzoUnitario: 1500.00,
+            importo: 1500.00
+        },
+        {
+            descrizione: 'Fornitura materiali e attrezzature specializzate',
+            unitaMisura: 'cad',
+            dimensioni: '-',
+            quantita: 5,
+            prezzoUnitario: 180.00,
+            importo: 900.00
+        },
+        {
+            descrizione: 'Gestione e coordinamento attività operative',
+            unitaMisura: 'ore',
+            dimensioni: '-',
+            quantita: 16,
+            prezzoUnitario: 55.00,
+            importo: 880.00
+        },
+        {
+            descrizione: 'Assistenza post-vendita e supporto tecnico',
+            unitaMisura: 'mese',
+            dimensioni: '-',
+            quantita: 3,
+            prezzoUnitario: 250.00,
+            importo: 750.00
+        }
+    ];
+    
+    vociPreventivo = vociDemo;
+    aggiornaTabella();
+    
+    document.getElementById('includiIva').checked = true;
+    document.getElementById('ivaSettings').classList.remove('hidden');
+    document.getElementById('rigaIva').classList.remove('hidden');
+    document.getElementById('percentualeIva').value = '22';
+    
+    calcolaTotali();
+    console.log('✅ Dati demo caricati: 5 voci di esempio con IVA 22%');
+}
+
+function caricaPresetElettricista() {
+    const vociPreset = [
+        { descrizione: 'Realizzazione punto luce standard', unitaMisura: 'cad', dimensioni: '-', quantita: 6, prezzoUnitario: 45.00, importo: 270.00 },
+        { descrizione: 'Installazione presa elettrica', unitaMisura: 'cad', dimensioni: '-', quantita: 8, prezzoUnitario: 35.00, importo: 280.00 },
+        { descrizione: 'Installazione quadro elettrico', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 350.00, importo: 350.00 },
+        { descrizione: 'Verifica e certificazione impianto', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 180.00, importo: 180.00 }
+    ];
+    vociPreventivo = vociPreventivo.concat(vociPreset);
+    aggiornaTabella();
+    calcolaTotali();
+}
+
+function caricaPresetIdraulico() {
+    const vociPreset = [
+        { descrizione: 'Installazione rubinetteria', unitaMisura: 'cad', dimensioni: '-', quantita: 3, prezzoUnitario: 65.00, importo: 195.00 },
+        { descrizione: 'Installazione sanitari', unitaMisura: 'cad', dimensioni: '-', quantita: 2, prezzoUnitario: 120.00, importo: 240.00 },
+        { descrizione: 'Sostituzione tubazioni', unitaMisura: 'ml', dimensioni: '-', quantita: 12, prezzoUnitario: 45.00, importo: 540.00 },
+        { descrizione: 'Riparazione perdite e infiltrazioni', unitaMisura: 'ore', dimensioni: '-', quantita: 3, prezzoUnitario: 55.00, importo: 165.00 }
+    ];
+    vociPreventivo = vociPreventivo.concat(vociPreset);
+    aggiornaTabella();
+    calcolaTotali();
+}
+
+function caricaPresetTecnico() {
+    const vociPreset = [
+        { descrizione: 'Manutenzione ordinaria programmata', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 95.00, importo: 95.00 },
+        { descrizione: 'Diagnosi e risoluzione guasti', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 90.00, importo: 90.00 },
+        { descrizione: 'Intervento di riparazione standard', unitaMisura: 'ore', dimensioni: '-', quantita: 4, prezzoUnitario: 50.00, importo: 200.00 },
+        { descrizione: 'Installazione e configurazione dispositivi', unitaMisura: 'cad', dimensioni: '-', quantita: 2, prezzoUnitario: 120.00, importo: 240.00 },
+        { descrizione: 'Controllo e verifica funzionamento', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 65.00, importo: 65.00 }
+    ];
+    vociPreventivo = vociPreventivo.concat(vociPreset);
+    aggiornaTabella();
+    calcolaTotali();
+}
+
+function caricaPresetServiziProfessionali() {
+    const vociPreset = [
+        { descrizione: 'Consulenza professionale iniziale', unitaMisura: 'ore', dimensioni: '-', quantita: 4, prezzoUnitario: 75.00, importo: 300.00 },
+        { descrizione: 'Analisi e valutazione tecnica', unitaMisura: 'cad', dimensioni: '-', quantita: 1, prezzoUnitario: 150.00, importo: 150.00 },
+        { descrizione: 'Progettazione soluzione personalizzata', unitaMisura: 'a corpo', dimensioni: '-', quantita: 1, prezzoUnitario: 350.00, importo: 350.00 },
+        { descrizione: 'Coordinamento attività operative', unitaMisura: 'ore', dimensioni: '-', quantita: 8, prezzoUnitario: 55.00, importo: 440.00 }
+    ];
+    vociPreventivo = vociPreventivo.concat(vociPreset);
+    aggiornaTabella();
+    calcolaTotali();
 }
 
 function nuovoPreventivo() {
@@ -392,6 +550,7 @@ function nuovoPreventivo() {
     
     vociPreventivo = [];
     contatorePrevenetivo++;
+    localStorage.setItem('ultimoNumeroPreventivo', contatorePrevenetivo);
     
     document.getElementById('numeroPreventivo').value = String(contatorePrevenetivo).padStart(3, '0');
     document.getElementById('nomeCliente').value = '';
@@ -426,7 +585,7 @@ function anteprimaPreventivo() {
     const emailAzienda = document.getElementById('emailAzienda').value;
     const partitaIva = document.getElementById('partitaIva').value;
     const numeroPreventivo = document.getElementById('numeroPreventivo').value;
-    const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO LAVORI EDILI';
+    const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO';
     const indirizzoCliente = document.getElementById('indirizzoCliente').value;
     const telefonoCliente = document.getElementById('telefonoCliente').value;
     const emailCliente = document.getElementById('emailCliente').value;
@@ -444,7 +603,7 @@ function anteprimaPreventivo() {
     const dataObj = new Date(dataInput);
     const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
     const dataFormattata = dataObj.toLocaleDateString('it-IT', opzioni);
-    const luogoData = `Imola, ${dataFormattata}`;
+    const luogoData = `Milano, ${dataFormattata}`;
     
     // Genera HTML per l'anteprima
     const htmlAnteprima = `
@@ -482,7 +641,7 @@ function anteprimaPreventivo() {
                 }
                 .title-section h2 {
                     font-size: 20px;
-                    color: #1F3E7C;
+                    color: #34A873;
                     margin-bottom: 10px;
                 }
                 .title-section p {
@@ -497,7 +656,7 @@ function anteprimaPreventivo() {
                 .client-box h3 {
                     font-size: 14px;
                     margin-bottom: 10px;
-                    color: #1F3E7C;
+                    color: #34A873;
                 }
                 .client-box p {
                     margin: 3px 0;
@@ -510,7 +669,7 @@ function anteprimaPreventivo() {
                     font-size: 11px;
                 }
                 thead {
-                    background: #1F3E7C;
+                    background: #34A873;
                     color: white;
                 }
                 th, td {
@@ -534,14 +693,14 @@ function anteprimaPreventivo() {
                 }
                 .total-final {
                     font-size: 16px;
-                    color: #1F3E7C;
+                    color: #34A873;
                     margin: 12px 0;
                 }
                 .notes-box {
                     margin: 25px 0;
                     padding: 15px;
                     background: #f9f9f9;
-                    border-left: 3px solid #1F3E7C;
+                    border-left: 3px solid #34A873;
                     font-size: 11px;
                 }
                 .notes-box p {
@@ -557,14 +716,14 @@ function anteprimaPreventivo() {
                 .signature {
                     text-align: left;
                 }
-                .signature p {
-                    margin-bottom: 60px;
-                    font-size: 11px;
-                }
                 .signature-line {
                     border-bottom: 1px solid #000;
                     width: 200px;
-                    margin-top: -40px;
+                    margin-bottom: 4px;
+                }
+                .signature p {
+                    margin: 0;
+                    font-size: 11px;
                 }
                 .stamp {
                     text-align: right;
@@ -578,7 +737,7 @@ function anteprimaPreventivo() {
         </head>
         <body>
             <div class="header">
-                <img src="LOGO.jpg" alt="IL MATTONCINO S.R.L." />
+                <img src="attached_assets/LOGO_DETTOFATTO_1768283639592.png" alt="DettoFatto" />
                 <p>${indirizzoAzienda}</p>
                 <p>Tel: ${telefonoAzienda} | Email: ${emailAzienda}</p>
                 <p>P.IVA: ${partitaIva}</p>
@@ -602,12 +761,12 @@ function anteprimaPreventivo() {
             <table>
                 <thead>
                     <tr>
-                        <th>Descrizione</th>
-                        <th class="text-center">U.M.</th>
-                        <th class="text-center">Qtà</th>
+                        <th>Descrizione della lavorazione</th>
+                        <th class="text-center">Unità di Misura</th>
+                        <th class="text-center">Dimensioni</th>
+                        <th class="text-center">Quantità</th>
                         <th class="text-right">Prezzo Unit.</th>
-                        <th class="text-center">Sconto %</th>
-                        <th class="text-right">Importo</th>
+                        <th class="text-right">Importo Totale</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -615,9 +774,9 @@ function anteprimaPreventivo() {
                         <tr>
                             <td>${voce.descrizione}</td>
                             <td class="text-center">${voce.unitaMisura}</td>
+                            <td class="text-center">${voce.dimensioni}</td>
                             <td class="text-center">${voce.quantita}</td>
                             <td class="text-right">${formatCurrency(voce.prezzoUnitario)}</td>
-                            <td class="text-center">${voce.sconto}%</td>
                             <td class="text-right">${formatCurrency(voce.importo)}</td>
                         </tr>
                     `).join('')}
@@ -640,11 +799,11 @@ function anteprimaPreventivo() {
             
             <div class="footer">
                 <div class="signature">
-                    <p>Firma per presa visione ed accettazione</p>
                     <div class="signature-line"></div>
+                    <p>Firma per presa visione ed accettazione</p>
                 </div>
                 <div class="stamp">
-                    <img src="TIMBRO.jpg" alt="Timbro" />
+                    <img src="attached_assets/TIMBRO_DETTOFATTO_1768283639598.png" alt="Timbro" />
                 </div>
             </div>
         </body>
@@ -692,7 +851,7 @@ async function generaPDF() {
         const emailAzienda = document.getElementById('emailAzienda').value;
         const partitaIva = document.getElementById('partitaIva').value;
         const numeroPreventivo = document.getElementById('numeroPreventivo').value;
-        const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO LAVORI EDILI';
+        const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO';
         const indirizzoCliente = document.getElementById('indirizzoCliente').value;
         const telefonoCliente = document.getElementById('telefonoCliente').value;
         const emailCliente = document.getElementById('emailCliente').value;
@@ -710,25 +869,25 @@ async function generaPDF() {
         const dataObj = new Date(dataInput);
         const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
         const dataFormattata = dataObj.toLocaleDateString('it-IT', opzioni);
-        const luogoData = `Imola, ${dataFormattata}`;
+        const luogoData = `Milano, ${dataFormattata}`;
         
         // Costruisci HTML del PDF
         pdfContainer.innerHTML = `
             <div style="margin-bottom: 30px; text-align: center;">
-                <img src="LOGO.jpg" style="max-width: 400px; height: auto; margin-bottom: 15px;" />
+                <img src="attached_assets/LOGO_DETTOFATTO_1768283639592.png" style="max-width: 400px; height: auto; margin-bottom: 15px;" />
                 <p style="margin: 5px 0; font-size: 12px;">${indirizzoAzienda}</p>
                 <p style="margin: 5px 0; font-size: 12px;">Tel: ${telefonoAzienda} | Email: ${emailAzienda}</p>
                 <p style="margin: 5px 0; font-size: 12px;">P.IVA: ${partitaIva}</p>
             </div>
             
             <div style="text-align: center; margin: 30px 0;">
-                <h2 style="font-size: 20px; color: #1F3E7C; margin-bottom: 10px;">${titoloPreventivo}</h2>
+                <h2 style="font-size: 20px; color: #34A873; margin-bottom: 10px;">${titoloPreventivo}</h2>
                 <p style="font-size: 12px;">Preventivo N° ${numeroPreventivo}</p>
                 <p style="font-size: 12px;">${luogoData}</p>
             </div>
             
             <div style="margin: 25px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
-                <h3 style="font-size: 14px; margin-bottom: 10px; color: #1F3E7C;">CLIENTE</h3>
+                <h3 style="font-size: 14px; margin-bottom: 10px; color: #34A873;">CLIENTE</h3>
                 <p style="margin: 3px 0; font-size: 12px;"><strong>${nomeCliente}</strong></p>
                 ${indirizzoCliente ? `<p style="margin: 3px 0; font-size: 11px;">${indirizzoCliente}</p>` : ''}
                 ${telefonoCliente ? `<p style="margin: 3px 0; font-size: 11px;">Tel: ${telefonoCliente}</p>` : ''}
@@ -738,13 +897,13 @@ async function generaPDF() {
             
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 11px;">
                 <thead>
-                    <tr style="background: #1F3E7C; color: white;">
+                    <tr style="background: #34A873; color: white;">
                         <th style="padding: 8px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Descrizione</th>
-                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">U.M.</th>
-                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Qtà</th>
-                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Prezzo Unit.</th>
-                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Sconto %</th>
-                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Importo</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Unità</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Dimensioni</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Quantità</th>
+                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Prezzo Unit. (€)</th>
+                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Importo Totale (€)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -752,9 +911,9 @@ async function generaPDF() {
                         <tr>
                             <td style="padding: 8px; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.descrizione}</td>
                             <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.unitaMisura}</td>
+                            <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.dimensioni}</td>
                             <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.quantita}</td>
                             <td style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${formatCurrency(voce.prezzoUnitario)}</td>
-                            <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.sconto}%</td>
                             <td style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${formatCurrency(voce.importo)}</td>
                         </tr>
                     `).join('')}
@@ -766,10 +925,10 @@ async function generaPDF() {
                 ${document.getElementById('includiIva').checked ? `
                     <p style="margin: 8px 0;"><strong>IVA ${document.getElementById('labelPercentualeIva').textContent}%: ${document.getElementById('totaleIva').textContent}</strong></p>
                 ` : ''}
-                <p style="margin: 12px 0; font-size: 16px; color: #1F3E7C;"><strong>TOTALE FINALE: ${document.getElementById('totaleFinale').textContent}</strong></p>
+                <p style="margin: 12px 0; font-size: 16px; color: #34A873;"><strong>TOTALE FINALE: ${document.getElementById('totaleFinale').textContent}</strong></p>
             </div>
             
-            <div style="margin: 25px 0; padding: 15px; background: #f9f9f9; border-left: 3px solid #1F3E7C; font-size: 11px;">
+            <div style="margin: 25px 0; padding: 15px; background: #f9f9f9; border-left: 3px solid #34A873; font-size: 11px;">
                 <p style="margin: 5px 0;"><strong>Modalità di Pagamento:</strong> ${modalitaPagamento}</p>
                 <p style="margin: 5px 0;"><strong>Validità:</strong> ${validita} giorni</p>
                 ${notePreventivo ? `<p style="margin: 10px 0 5px 0;"><strong>Note:</strong></p><p style="margin: 5px 0;">${notePreventivo}</p>` : ''}
@@ -777,11 +936,11 @@ async function generaPDF() {
             
             <div style="margin-top: 50px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-start;">
                 <div style="text-align: left;">
-                    <p style="margin-bottom: 60px; font-size: 11px;">Firma per presa visione ed accettazione</p>
-                    <div style="border-bottom: 1px solid #000; width: 200px; margin-top: -40px;"></div>
+                    <div style="border-bottom: 1px solid #000; width: 200px; margin-bottom: 4px;"></div>
+                    <p style="margin: 0; font-size: 11px;">Firma per presa visione ed accettazione</p>
                 </div>
                 <div style="text-align: right; margin-top: 20px;">
-                    <img src="TIMBRO.jpg" style="max-width: 180px; height: auto;" />
+                    <img src="attached_assets/TIMBRO_DETTOFATTO_1768283639598.png" style="max-width: 180px; height: auto;" />
                 </div>
             </div>
         `;
@@ -815,19 +974,4 @@ async function generaPDF() {
         console.error('Errore generazione PDF:', error);
         alert('Errore durante la generazione del PDF. Riprova.');
     }
-}
-
-// LOGIN TEMPLATE DEMO
-const LOGIN_USER = "demo";
-const LOGIN_PASS = "demo123";
-
-function login(){
-  const u=document.getElementById("username").value;
-  const p=document.getElementById("password").value;
-  if(u===LOGIN_USER && p===LOGIN_PASS){
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("app").style.display="block";
-  }else{
-    document.getElementById("loginError").style.display="block";
-  }
 }
