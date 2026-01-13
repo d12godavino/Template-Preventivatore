@@ -736,6 +736,7 @@ function anteprimaPreventivo() {
                 }
                 .signature {
                     text-align: left;
+                    margin-top: 50px;
                 }
                 .signature-line {
                     border-bottom: 1px solid #000;
@@ -956,7 +957,7 @@ async function generaPDF() {
             </div>
             
             <div style="margin-top: 50px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-start;">
-                <div style="text-align: left;">
+                <div style="text-align: left; margin-top: 50px;">
                     <div style="border-bottom: 1px solid #000; width: 200px; margin-bottom: 4px;"></div>
                     <p style="margin: 0; font-size: 11px;">Firma per presa visione ed accettazione</p>
                 </div>
