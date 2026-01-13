@@ -1,0 +1,72 @@
+Categoria,Sottocategoria,Descrizione,Unità_Misura,Prezzo_Unitario,Note
+SERVIZI TECNICI,Installazione,Installazione impianto base su richiesta,cad,150.0,Include sopralluogo
+SERVIZI TECNICI,Installazione,Installazione apparecchiature standard,cad,85.0,Materiali esclusi
+SERVIZI TECNICI,Installazione,Installazione e configurazione dispositivi,cad,120.0,Con test funzionale
+SERVIZI TECNICI,Installazione,Posa e collegamento componenti,ore,45.0,Manodopera specializzata
+SERVIZI TECNICI,Manutenzione,Manutenzione ordinaria programmata,cad,95.0,Controllo periodico
+SERVIZI TECNICI,Manutenzione,Manutenzione straordinaria,ore,55.0,Su chiamata
+SERVIZI TECNICI,Manutenzione,Controllo e verifica funzionamento,cad,65.0,Con report
+SERVIZI TECNICI,Manutenzione,Pulizia e sanificazione impianti,cad,80.0,Prodotti inclusi
+SERVIZI TECNICI,Riparazione,Intervento di riparazione standard,ore,50.0,Ricambi esclusi
+SERVIZI TECNICI,Riparazione,Riparazione urgente su chiamata,ore,75.0,Pronto intervento
+SERVIZI TECNICI,Riparazione,Sostituzione componenti difettosi,cad,40.0,Ricambi esclusi
+SERVIZI TECNICI,Riparazione,Diagnosi e risoluzione guasti,cad,90.0,Include report tecnico
+IMPIANTI,Elettrico,Realizzazione punto luce standard,cad,45.0,Materiali inclusi
+IMPIANTI,Elettrico,Installazione presa elettrica,cad,35.0,Standard civile
+IMPIANTI,Elettrico,Verifica e certificazione impianto,cad,180.0,Con rilascio dichiarazione
+IMPIANTI,Elettrico,Installazione quadro elettrico,cad,350.0,Completo di protezioni
+IMPIANTI,Idraulico,Installazione rubinetteria,cad,65.0,Rubinetto escluso
+IMPIANTI,Idraulico,Riparazione perdite e infiltrazioni,ore,55.0,Materiali esclusi
+IMPIANTI,Idraulico,Installazione sanitari,cad,120.0,Sanitari esclusi
+IMPIANTI,Idraulico,Sostituzione tubazioni,ml,45.0,Include raccordi
+IMPIANTI,Climatizzazione,Installazione condizionatore mono split,cad,280.0,Apparecchio escluso
+IMPIANTI,Climatizzazione,Manutenzione climatizzatore,cad,85.0,Pulizia e ricarica
+IMPIANTI,Climatizzazione,Installazione termostato programmabile,cad,95.0,Dispositivo escluso
+IMPIANTI,Climatizzazione,Verifica e regolazione impianto,cad,120.0,Con test efficienza
+LAVORI E INTERVENTI,Piccoli interventi,Intervento tecnico minimo,cad,45.0,Durata max 30 min
+LAVORI E INTERVENTI,Piccoli interventi,Piccola riparazione domestica,ore,40.0,Materiali esclusi
+LAVORI E INTERVENTI,Piccoli interventi,Montaggio arredi e accessori,ore,35.0,Ferramenta inclusa
+LAVORI E INTERVENTI,Piccoli interventi,Fissaggio e ancoraggio elementi,cad,25.0,Include tasselli
+LAVORI E INTERVENTI,Lavori su richiesta,Lavoro personalizzato su misura,ore,50.0,Preventivo specifico
+LAVORI E INTERVENTI,Lavori su richiesta,Intervento complesso su commissione,a corpo,500.0,Da valutare
+LAVORI E INTERVENTI,Lavori su richiesta,Servizio tecnico dedicato,giorno,320.0,8 ore lavorative
+LAVORI E INTERVENTI,Adeguamenti,Adeguamento normativo impianti,a corpo,450.0,Con certificazione
+LAVORI E INTERVENTI,Adeguamenti,Aggiornamento sistemi esistenti,ore,55.0,Componenti esclusi
+LAVORI E INTERVENTI,Adeguamenti,Modifica e ampliamento installazioni,a corpo,380.0,Da preventivare
+SERVIZI PROFESSIONALI,Consulenza,Consulenza professionale iniziale,ore,75.0,Prima visita
+SERVIZI PROFESSIONALI,Consulenza,Analisi e valutazione tecnica,cad,150.0,Con relazione
+SERVIZI PROFESSIONALI,Consulenza,Assistenza e supporto decisionale,ore,65.0,Telefonica o in sede
+SERVIZI PROFESSIONALI,Consulenza,Sopralluogo tecnico preventivo,cad,80.0,Include spostamento
+SERVIZI PROFESSIONALI,Progettazione,Progettazione soluzione personalizzata,a corpo,350.0,Con documentazione
+SERVIZI PROFESSIONALI,Progettazione,Studio di fattibilità tecnica,cad,250.0,Relazione tecnica
+SERVIZI PROFESSIONALI,Progettazione,Elaborazione preventivo dettagliato,cad,120.0,Computo metrico
+SERVIZI PROFESSIONALI,Coordinamento,Coordinamento attività operative,ore,55.0,Gestione lavori
+SERVIZI PROFESSIONALI,Coordinamento,Direzione e supervisione lavori,giorno,280.0,Presenza in cantiere
+SERVIZI PROFESSIONALI,Coordinamento,Gestione fornitori e subappaltatori,ore,45.0,Organizzazione
+SERVIZI SPECIALIZZATI,Antennista,Installazione antenna TV digitale,cad,180.0,Antenna esclusa
+SERVIZI SPECIALIZZATI,Antennista,Puntamento e ottimizzazione segnale,cad,85.0,Con strumentazione
+SERVIZI SPECIALIZZATI,Antennista,Riparazione impianto antenna,ore,50.0,Ricambi esclusi
+SERVIZI SPECIALIZZATI,Videosorveglianza,Installazione telecamera IP,cad,95.0,Telecamera esclusa
+SERVIZI SPECIALIZZATI,Videosorveglianza,Configurazione sistema DVR/NVR,cad,150.0,Apparato escluso
+SERVIZI SPECIALIZZATI,Videosorveglianza,Cablaggio rete videosorveglianza,ml,8.0,Cavo incluso
+SERVIZI SPECIALIZZATI,Automazioni,Automazione cancello scorrevole,cad,450.0,Motore escluso
+SERVIZI SPECIALIZZATI,Automazioni,Installazione serratura elettronica,cad,120.0,Dispositivo escluso
+SERVIZI SPECIALIZZATI,Automazioni,Programmazione telecomandi e accessi,cad,35.0,Per unità
+SERVIZI CREATIVI,Servizio fotografico,Servizio fotografico professionale base,cad,250.0,Fino a 2 ore
+SERVIZI CREATIVI,Servizio fotografico,Fotografia prodotto e-commerce,cad,25.0,Per prodotto
+SERVIZI CREATIVI,Servizio fotografico,Reportage evento aziendale,ore,120.0,Editing incluso
+SERVIZI CREATIVI,Riprese video,Ripresa video professionale,ore,150.0,Con attrezzatura
+SERVIZI CREATIVI,Riprese video,Video promozionale aziendale,a corpo,800.0,Fino a 3 minuti
+SERVIZI CREATIVI,Riprese video,Ripresa con drone,ore,200.0,Pilota certificato
+SERVIZI CREATIVI,Post-produzione,Montaggio video professionale,ore,65.0,Software professionale
+SERVIZI CREATIVI,Post-produzione,Ritocco e ottimizzazione foto,cad,15.0,Per immagine
+SERVIZI CREATIVI,Post-produzione,Color grading video,ore,55.0,Correzione colore
+SERVIZI DIGITALI,Sito web base,Realizzazione sito web vetrina,a corpo,800.0,Fino a 5 pagine
+SERVIZI DIGITALI,Sito web base,Pagina web aggiuntiva,cad,120.0,Contenuti esclusi
+SERVIZI DIGITALI,Sito web base,Configurazione dominio e hosting,cad,95.0,Primo anno
+SERVIZI DIGITALI,Manutenzione sito,Manutenzione mensile sito web,mese,85.0,Aggiornamenti inclusi
+SERVIZI DIGITALI,Manutenzione sito,Backup e sicurezza sito,mese,45.0,Backup settimanale
+SERVIZI DIGITALI,Manutenzione sito,Aggiornamento contenuti web,ore,40.0,Testi e immagini
+SERVIZI DIGITALI,Supporto tecnico,Assistenza tecnica remota,ore,45.0,Teleassistenza
+SERVIZI DIGITALI,Supporto tecnico,Configurazione email e account,cad,35.0,Per account
+SERVIZI DIGITALI,Supporto tecnico,Risoluzione problemi tecnici,ore,55.0,Diagnosi e fix
