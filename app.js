@@ -1,95 +1,76 @@
-// IL MATTONCINO S.R.L. - APPLICAZIONE 100% FUNZIONALE - BUGS RISOLTI
-// Database edilizio completo con 323 voci
-const databaseEdile = [
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione pavimenti", "Descrizione": "Demolizione pavimento ceramico con rimozione", "Unità_Misura": "mq", "Prezzo_Unitario": 8.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione pavimenti", "Descrizione": "Demolizione pavimento parquet con rimozione", "Unità_Misura": "mq", "Prezzo_Unitario": 12.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione pavimenti", "Descrizione": "Demolizione e rimozione pavimento esistente", "Unità_Misura": "mq", "Prezzo_Unitario": 10.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione murature", "Descrizione": "Demolizione tramezzi in mattoni forati", "Unità_Misura": "mq", "Prezzo_Unitario": 15.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione murature", "Descrizione": "Demolizione muro in mattoni pieni", "Unità_Misura": "mq", "Prezzo_Unitario": 18.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione intonaci", "Descrizione": "Rimozione intonaco civile da pareti", "Unità_Misura": "mq", "Prezzo_Unitario": 5.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione intonaci", "Descrizione": "Rimozione intonaco da soffitto", "Unità_Misura": "mq", "Prezzo_Unitario": 6.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione infissi", "Descrizione": "Rimozione porte e finestre esistenti", "Unità_Misura": "cad", "Prezzo_Unitario": 50.0},
-    {"Categoria": "DEMOLIZIONI", "Sottocategoria": "Demolizione infissi", "Descrizione": "Rimozione persiane esistenti", "Unità_Misura": "cad", "Prezzo_Unitario": 30.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Murature tradizionali", "Descrizione": "Muratura mattoni forati 8x12x24", "Unità_Misura": "mq", "Prezzo_Unitario": 42.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Murature tradizionali", "Descrizione": "Muratura mattoni forati 12x12x24", "Unità_Misura": "mq", "Prezzo_Unitario": 48.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Murature tradizionali", "Descrizione": "Muratura mattoni forati 25x12x24", "Unità_Misura": "mq", "Prezzo_Unitario": 62.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Murature tradizionali", "Descrizione": "Muratura mattoni pieni 6x12x24", "Unità_Misura": "mq", "Prezzo_Unitario": 65.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Murature tradizionali", "Descrizione": "Muratura blocchi cls alleggerito 20cm", "Unità_Misura": "mq", "Prezzo_Unitario": 55.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Pareti cartongesso", "Descrizione": "Parete cartongesso standard 10cm", "Unità_Misura": "mq", "Prezzo_Unitario": 38.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Pareti cartongesso", "Descrizione": "Parete cartongesso ignifugo 10cm", "Unità_Misura": "mq", "Prezzo_Unitario": 45.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Pareti cartongesso", "Descrizione": "Parete cartongesso idrorepellente 10cm", "Unità_Misura": "mq", "Prezzo_Unitario": 42.0},
-    {"Categoria": "OPERE MURARIE", "Sottocategoria": "Controsoffitti", "Descrizione": "Controsoffitto cartongesso piano", "Unità_Misura": "mq", "Prezzo_Unitario": 28.0},
-    {"Categoria": "PAVIMENTAZIONI", "Sottocategoria": "Ceramica e gres", "Descrizione": "Pavimento ceramica 20x20 1ª scelta", "Unità_Misura": "mq", "Prezzo_Unitario": 22.0},
-    {"Categoria": "PAVIMENTAZIONI", "Sottocategoria": "Ceramica e gres", "Descrizione": "Pavimento gres 60x60 lucido", "Unità_Misura": "mq", "Prezzo_Unitario": 35.0},
-    {"Categoria": "PAVIMENTAZIONI", "Sottocategoria": "Parquet e legno", "Descrizione": "Parquet rovere prefinito 14mm", "Unità_Misura": "mq", "Prezzo_Unitario": 55.0},
-    {"Categoria": "IMPIANTO ELETTRICO", "Sottocategoria": "Punti luce", "Descrizione": "Punto luce semplice", "Unità_Misura": "cad", "Prezzo_Unitario": 35.0},
-    {"Categoria": "IMPIANTO ELETTRICO", "Sottocategoria": "Prese elettriche", "Descrizione": "Presa 10/16A schuko", "Unità_Misura": "cad", "Prezzo_Unitario": 28.0},
-    {"Categoria": "IMPIANTO IDRAULICO", "Sottocategoria": "Sanitari", "Descrizione": "WC a terra monoblocco", "Unità_Misura": "cad", "Prezzo_Unitario": 185.0},
-    {"Categoria": "IMPIANTO IDRAULICO", "Sottocategoria": "Sanitari", "Descrizione": "Lavabo sospeso 60cm", "Unità_Misura": "cad", "Prezzo_Unitario": 115.0},
-    {"Categoria": "INTONACI E FINITURE", "Sottocategoria": "Intonaci tradizionali", "Descrizione": "Intonaco civile tre mani", "Unità_Misura": "mq", "Prezzo_Unitario": 14.0},
-    {"Categoria": "INTONACI E FINITURE", "Sottocategoria": "Pitture interni", "Descrizione": "Idropittura lavabile bianca", "Unità_Misura": "mq", "Prezzo_Unitario": 4.5},
-    {"Categoria": "MANODOPERA", "Sottocategoria": "Generale", "Descrizione": "Manodopera", "Unità_Misura": "ora", "Prezzo_Unitario": 37.0}
-];
+window.LOGIN_USER = "demo";
+window.LOGIN_PASS = "demo123";
+// ARTIGIANO DEMO - Preventivatore Edile Professionale
+// Versione corretta con PDF, logo e timbro
 
-// Base64 LOGO REALE - Immagine JPG di mattoncini da costruzione in colore blu corporate
-const LOGO_BASE64 = "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCABkAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nnq4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9W6KKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoooqQCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAr//Z";
-
-// Base64 TIMBRO REALE - Immagine circolare con scritta "IL MATTONCINO S.R.L." in blu corporate
-const TIMBRO_BASE64 = "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCABkAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nnq4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6frGKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoooor//Z";
-
-// Variabili globali
+// Carica il database
+let databaseEdile = [];
 let vociPreventivo = [];
 let contatorePrevenetivo = 1;
 
-// FUNZIONE FORMATCURRENCY CORRETTA - RISOLVE BUG FORMATTAZIONE CON SPAZIO OBBLIGATORIO
+// Funzione per caricare il database dal CSV
+async function caricaDatabase() {
+    try {
+        const response = await // fetch disabilitato
+// fetch('attached_assets/database_edile_completo_1759919082996.csv');
+        const csvText = await response.text();
+        const lines = csvText.split('\n');
+        const headers = lines[0].split(',');
+        
+        for (let i = 1; i < lines.length; i++) {
+            if (lines[i].trim()) {
+                const values = lines[i].split(',');
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = values[index]?.trim() || '';
+                });
+                databaseEdile.push(obj);
+            }
+        }
+        console.log(`✅ Database caricato: ${databaseEdile.length} voci`);
+    } catch (error) {
+        console.error('Errore caricamento database:', error);
+    }
+}
+
+// Formattazione valuta italiana
 function formatCurrency(amount) {
     if (isNaN(amount) || amount === null || amount === undefined) return "€ 0,00";
     
-    // Usa Intl.NumberFormat per formattazione italiana
     const numeroFormattato = new Intl.NumberFormat('it-IT', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }).format(parseFloat(amount));
     
-    // SPAZIO OBBLIGATORIO tra € e numero - FIX CRITICO
     return `€ ${numeroFormattato}`;
 }
 
 // Inizializzazione dell'applicazione
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌙 IL MATTONCINO S.R.L. - Inizializzazione notturna...');
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🏗️ ARTIGIANO DEMO - Inizializzazione...');
+    await caricaDatabase();
     inizializzaApp();
     caricaCategorie();
-    impostaLuogoDataOggi();
+    impostaDataOggi();
     impostaEventListeners();
-    console.log('✅ Applicazione inizializzata con successo!');
+    console.log('✅ Applicazione pronta!');
 });
 
 function inizializzaApp() {
-    console.log('Inizializzazione IL MATTONCINO S.R.L. Preventivatore');
     const numeroPreventivo = document.getElementById('numeroPreventivo');
     if (numeroPreventivo) {
         numeroPreventivo.value = String(contatorePrevenetivo).padStart(3, '0');
     }
-    
-    // Imposta note con prezzo corretto €37,00
-    const notePreventivo = document.getElementById('notePreventivo');
-    if (notePreventivo) {
-        notePreventivo.value = 'Eventuali ore in economia saranno contabilizzate al costo orario di € 37,00. Sono esclusi dal preventivo IVA, acqua ed energia elettrica.';
-    }
 }
 
-function impostaLuogoDataOggi() {
+function impostaDataOggi() {
     const oggi = new Date();
-    const opzioni = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric'
-    };
-    const dataFormattata = oggi.toLocaleDateString('it-IT', opzioni);
-    const luogoDataInput = document.getElementById('luogoData');
-    if (luogoDataInput) {
-        luogoDataInput.value = `Imola, ${dataFormattata}`;
+    const dataInput = document.getElementById('dataPreventivo');
+    if (dataInput) {
+        const anno = oggi.getFullYear();
+        const mese = String(oggi.getMonth() + 1).padStart(2, '0');
+        const giorno = String(oggi.getDate()).padStart(2, '0');
+        dataInput.value = `${anno}-${mese}-${giorno}`;
     }
 }
 
@@ -101,12 +82,13 @@ function caricaCategorie() {
     categoriaSelect.innerHTML = '<option value="">Seleziona categoria</option>';
     
     categorie.forEach(categoria => {
-        const option = document.createElement('option');
-        option.value = categoria;
-        option.textContent = categoria;
-        categoriaSelect.appendChild(option);
+        if (categoria) {
+            const option = document.createElement('option');
+            option.value = categoria;
+            option.textContent = categoria;
+            categoriaSelect.appendChild(option);
+        }
     });
-    console.log('📊 Categorie caricate:', categorie.length);
 }
 
 function caricaSottocategorie(categoriaSelezionata) {
@@ -123,13 +105,14 @@ function caricaSottocategorie(categoriaSelezionata) {
     sottocategoriaSelect.disabled = false;
     
     sottocategorie.forEach(sottocategoria => {
-        const option = document.createElement('option');
-        option.value = sottocategoria;
-        option.textContent = sottocategoria;
-        sottocategoriaSelect.appendChild(option);
+        if (sottocategoria) {
+            const option = document.createElement('option');
+            option.value = sottocategoria;
+            option.textContent = sottocategoria;
+            sottocategoriaSelect.appendChild(option);
+        }
     });
     
-    console.log('📋 Sottocategorie caricate per', categoriaSelezionata, ':', sottocategorie.length);
     resetDescrizioneFields();
 }
 
@@ -149,10 +132,10 @@ function caricaDescrizioni(categoriaSelezionata, sottocategoriaSelezionata) {
         const option = document.createElement('option');
         option.value = `${categoriaSelezionata}|${sottocategoriaSelezionata}|${index}`;
         option.textContent = item.Descrizione;
+        option.dataset.prezzo = item.Prezzo_Unitario;
+        option.dataset.um = item['Unità_Misura'];
         descrizioneSelect.appendChild(option);
     });
-    
-    console.log('📝 Descrizioni caricate per', categoriaSelezionata, '-', sottocategoriaSelezionata, ':', descrizioni.length);
 }
 
 function resetSottocategorieFields() {
@@ -177,30 +160,11 @@ function resetDescrizioneFields() {
     if (unitaMisuraSelect) unitaMisuraSelect.value = '';
 }
 
-function ottieniItemDaDescrizione(valueDescrizione) {
-    if (!valueDescrizione || valueDescrizione === '') return null;
-    
-    const parts = valueDescrizione.split('|');
-    if (parts.length !== 3) return null;
-    
-    const [categoria, sottocategoria, index] = parts;
-    const descrizioni = databaseEdile.filter(item => 
-        item.Categoria === categoria && 
-        item.Sottocategoria === sottocategoria
-    );
-    
-    const itemIndex = parseInt(index);
-    return descrizioni[itemIndex] || null;
-}
-
 function impostaEventListeners() {
-    console.log('🔧 Impostazione event listeners...');
-    
-    // Event listener per categoria
+    // Categoria
     const categoriaSelect = document.getElementById('categoria');
     if (categoriaSelect) {
         categoriaSelect.addEventListener('change', function() {
-            console.log('Categoria selezionata:', this.value);
             if (this.value) {
                 caricaSottocategorie(this.value);
             } else {
@@ -209,11 +173,10 @@ function impostaEventListeners() {
         });
     }
     
-    // Event listener per sottocategoria
+    // Sottocategoria
     const sottocategoriaSelect = document.getElementById('sottocategoria');
     if (sottocategoriaSelect) {
         sottocategoriaSelect.addEventListener('change', function() {
-            console.log('Sottocategoria selezionata:', this.value);
             const categoria = document.getElementById('categoria').value;
             if (this.value && categoria) {
                 caricaDescrizioni(categoria, this.value);
@@ -223,813 +186,660 @@ function impostaEventListeners() {
         });
     }
     
-    // Event listener per descrizione
+    // Descrizione
     const descrizioneSelect = document.getElementById('descrizione');
     if (descrizioneSelect) {
         descrizioneSelect.addEventListener('change', function() {
-            console.log('Descrizione selezionata:', this.value);
-            const item = ottieniItemDaDescrizione(this.value);
-            const prezzoUnitarioInput = document.getElementById('prezzoUnitario');
-            const unitaMisuraSelect = document.getElementById('unitaMisura');
-            const unitaMisuraCustom = document.getElementById('unitaMisuraCustom');
-            
-            if (item && prezzoUnitarioInput && unitaMisuraSelect) {
-                prezzoUnitarioInput.value = parseFloat(item.Prezzo_Unitario).toFixed(2);
-                
-                // Imposta unità di misura - AGGIUNTA "a corpo" MANCANTE
-                const unita = item.Unità_Misura;
-                const opzioniStandard = ['mq', 'ml', 'cad', 'kg', 'ton', 'q', 'ora', 'a corpo'];
-                
-                if (opzioniStandard.includes(unita)) {
-                    unitaMisuraSelect.value = unita;
-                    if (unitaMisuraCustom) unitaMisuraCustom.classList.add('hidden');
-                } else {
-                    unitaMisuraSelect.value = 'custom';
-                    if (unitaMisuraCustom) {
-                        unitaMisuraCustom.value = unita;
-                        unitaMisuraCustom.classList.remove('hidden');
-                    }
-                }
-                console.log('Dati impostati - Prezzo:', item.Prezzo_Unitario, 'Unità:', unita);
-            } else {
-                if (prezzoUnitarioInput) prezzoUnitarioInput.value = '';
-                if (unitaMisuraSelect) unitaMisuraSelect.value = '';
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption && selectedOption.dataset.prezzo) {
+document.getElementById('unitaMisura').value = selectedOption.dataset.um || '';
             }
         });
     }
     
-    // Event listener per unità di misura
+    // Unità misura custom
     const unitaMisuraSelect = document.getElementById('unitaMisura');
     const unitaMisuraCustom = document.getElementById('unitaMisuraCustom');
     if (unitaMisuraSelect && unitaMisuraCustom) {
         unitaMisuraSelect.addEventListener('change', function() {
             if (this.value === 'custom') {
                 unitaMisuraCustom.classList.remove('hidden');
-                unitaMisuraCustom.focus();
             } else {
                 unitaMisuraCustom.classList.add('hidden');
-                unitaMisuraCustom.value = '';
             }
         });
     }
     
-    // Event listener per modalità pagamento
-    const modalitaPagamentoSelect = document.getElementById('modalitaPagamento');
+    // Modalità pagamento custom
+    const modalitaPagamento = document.getElementById('modalitaPagamento');
     const pagamentoCustom = document.getElementById('pagamentoCustom');
-    if (modalitaPagamentoSelect && pagamentoCustom) {
-        modalitaPagamentoSelect.addEventListener('change', function() {
+    if (modalitaPagamento && pagamentoCustom) {
+        modalitaPagamento.addEventListener('change', function() {
             if (this.value === 'custom') {
                 pagamentoCustom.classList.remove('hidden');
-                pagamentoCustom.focus();
             } else {
                 pagamentoCustom.classList.add('hidden');
-                pagamentoCustom.value = '';
             }
         });
     }
     
-    // Event listener per IVA
-    const includiIvaCheck = document.getElementById('includiIva');
+    // IVA
+    const includiIva = document.getElementById('includiIva');
     const ivaSettings = document.getElementById('ivaSettings');
-    const rigaIva = document.getElementById('rigaIva');
-    if (includiIvaCheck && ivaSettings && rigaIva) {
-        includiIvaCheck.addEventListener('change', function() {
+    if (includiIva && ivaSettings) {
+        includiIva.addEventListener('change', function() {
             if (this.checked) {
                 ivaSettings.classList.remove('hidden');
-                rigaIva.classList.remove('hidden');
-            } else {
+} else {
                 ivaSettings.classList.add('hidden');
-                rigaIva.classList.add('hidden');
-                const ivaCustomInput = document.getElementById('ivaCustom');
-                if (ivaCustomInput) ivaCustomInput.classList.add('hidden');
-            }
-            aggiornaTotali();
+}
+            calcolaTotali();
         });
     }
     
-    const percentualeIvaSelect = document.getElementById('percentualeIva');
-    const ivaCustomInput = document.getElementById('ivaCustom');
-    if (percentualeIvaSelect && ivaCustomInput) {
-        percentualeIvaSelect.addEventListener('change', function() {
+    // Percentuale IVA
+    const percentualeIva = document.getElementById('percentualeIva');
+    const ivaCustom = document.getElementById('ivaCustom');
+    if (percentualeIva && ivaCustom) {
+        percentualeIva.addEventListener('change', function() {
             if (this.value === 'custom') {
-                ivaCustomInput.classList.remove('hidden');
-                ivaCustomInput.focus();
+                ivaCustom.classList.remove('hidden');
             } else {
-                ivaCustomInput.classList.add('hidden');
-                ivaCustomInput.value = '';
+                ivaCustom.classList.add('hidden');
+                calcolaTotali();
             }
-            aggiornaTotali();
         });
         
-        ivaCustomInput.addEventListener('input', function() {
-            aggiornaTotali();
-        });
+        ivaCustom.addEventListener('input', calcolaTotali);
     }
     
-    // Event listener per aggiungere voce
-    const aggiungiVoceBtn = document.getElementById('aggiungiVoce');
-    if (aggiungiVoceBtn) {
-        aggiungiVoceBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('➕ Click su aggiungi voce');
-            aggiungiVocePreventivo();
-        });
+    // Aggiungi voce
+    const aggiungiBtn = document.getElementById('aggiungiVoce');
+    if (aggiungiBtn) {
+        aggiungiBtn.addEventListener('click', aggiungiVocePreventivo);
     }
     
-    // Event listener per i pulsanti finali
+    // Anteprima
     const anteprimaBtn = document.getElementById('anteprimaPreventivo');
     if (anteprimaBtn) {
-        anteprimaBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('👁 Click su anteprima');
-            mostraAnteprima();
-        });
+        anteprimaBtn.addEventListener('click', anteprimaPreventivo);
     }
     
-    const scaricaPdfBtn = document.getElementById('scaricaPdf');
-    if (scaricaPdfBtn) {
-        scaricaPdfBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('📱 Click su scarica PDF');
-            scaricaPDF();
-        });
+    // Genera PDF
+    const generaPdfBtn = document.getElementById('generaPDF');
+    if (generaPdfBtn) {
+        generaPdfBtn.addEventListener('click', generaPDF);
     }
     
-    const stampaBtn = document.getElementById('stampaPreventivo');
-    if (stampaBtn) {
-        stampaBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('🖨 Click su stampa');
-            stampaPreventivo();
-        });
-    }
-    
+    // Nuovo preventivo
     const nuovoBtn = document.getElementById('nuovoPreventivo');
     if (nuovoBtn) {
-        nuovoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            nuovoPreventivo();
-        });
-    }
-    
-    const chiudiBtn = document.getElementById('chiudiAnteprima');
-    if (chiudiBtn) {
-        chiudiBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            chiudiAnteprima();
-        });
-    }
-    
-    // Event listener per chiudere modal cliccando fuori
-    const modal = document.getElementById('anteprimaModal');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                chiudiAnteprima();
-            }
-        });
+        nuovoBtn.addEventListener('click', nuovoPreventivo);
     }
 }
 
-// VALIDAZIONE NUOVA - PERMETTE DESCRIZIONE PERSONALIZZATA INDIPENDENTE
-function validaCampiVoce() {
-    let errori = [];
-    
-    const descrizionePersonalizzata = document.getElementById('descrizionePersonalizzata');
-    const categoriaSelect = document.getElementById('categoria');
-    const sottocategoriaSelect = document.getElementById('sottocategoria');
-    const descrizioneSelect = document.getElementById('descrizione');
-    const quantitaInput = document.getElementById('quantita');
-    const prezzoUnitarioInput = document.getElementById('prezzoUnitario');
-    const unitaMisuraSelect = document.getElementById('unitaMisura');
-    const unitaMisuraCustom = document.getElementById('unitaMisuraCustom');
-    
-    // LOGICA NUOVA: Se descrizione personalizzata compilata, ignora i menu
-    const hasDescrizionePersonalizzata = descrizionePersonalizzata && descrizionePersonalizzata.value.trim();
-    
-    if (!hasDescrizionePersonalizzata) {
-        // Se non c'è descrizione personalizzata, valida i menu
-        if (!categoriaSelect || !categoriaSelect.value) errori.push('Seleziona una categoria O compila descrizione personalizzata');
-        if (!sottocategoriaSelect || !sottocategoriaSelect.value) errori.push('Seleziona una sottocategoria O compila descrizione personalizzata');
-        if (!descrizioneSelect || !descrizioneSelect.value) errori.push('Seleziona una descrizione O compila descrizione personalizzata');
-    }
-    
-    // Validazioni sempre obbligatorie
-    if (!quantitaInput || !quantitaInput.value || parseFloat(quantitaInput.value) <= 0) errori.push('Inserisci una quantità valida');
-    if (!prezzoUnitarioInput || !prezzoUnitarioInput.value || parseFloat(prezzoUnitarioInput.value) <= 0) errori.push('Inserisci un prezzo unitario valido');
-    
-    const unitaVal = unitaMisuraSelect && unitaMisuraSelect.value === 'custom' ? 
-        (unitaMisuraCustom ? unitaMisuraCustom.value : '') : 
-        (unitaMisuraSelect ? unitaMisuraSelect.value : '');
-    if (!unitaVal) errori.push('Seleziona un\'unità di misura');
-    
-    if (errori.length > 0) {
-        console.log('❌ Errori di validazione:', errori);
-        mostraMessaggio('Errori: ' + errori.join(', '), 'errore');
-        return false;
-    }
-    
-    return true;
-}
-
-// AGGIUNTA VOCE CON LOGICA DESCRIZIONE PERSONALIZZATA INDIPENDENTE
 function aggiungiVocePreventivo() {
-    console.log('➕ Inizio aggiunta voce preventivo...');
+    const descrizionePersonalizzata = document.getElementById('descrizionePersonalizzata').value.trim();
+    const descrizioneSelect = document.getElementById('descrizione');
+    const selectedOption = descrizioneSelect.options[descrizioneSelect.selectedIndex];
     
-    if (!validaCampiVoce()) {
-        console.log('❌ Validazione fallita');
+    let descrizione = descrizionePersonalizzata || (selectedOption?.text !== 'Seleziona descrizione' ? selectedOption?.text : '');
+    
+    if (!descrizione) {
+        alert('Inserisci una descrizione');
         return;
     }
     
-    // Ottieni elementi
-    const descrizionePersonalizzata = document.getElementById('descrizionePersonalizzata');
-    const categoriaSelect = document.getElementById('categoria');
-    const sottocategoriaSelect = document.getElementById('sottocategoria');
-    const descrizioneSelect = document.getElementById('descrizione');
-    const quantitaInput = document.getElementById('quantita');
-    const prezzoUnitarioInput = document.getElementById('prezzoUnitario');
-    const unitaMisuraSelect = document.getElementById('unitaMisura');
-    const unitaMisuraCustom = document.getElementById('unitaMisuraCustom');
-    const scontoInput = document.getElementById('sconto');
+    const quantita = parseFloat(document.getElementById('quantita').value) || 0;
+    const prezzoUnitario = parseFloat(document.getElementById('prezzoUnitario').value) || 0;
+    const sconto = parseFloat(document.getElementById('sconto').value) || 0;
     
-    // LOGICA PRIORITÀ: Descrizione personalizzata ha priorità sui menu
-    let descrizione, categoria, sottocategoria;
-    
-    if (descrizionePersonalizzata && descrizionePersonalizzata.value.trim()) {
-        // USA DESCRIZIONE PERSONALIZZATA
-        descrizione = descrizionePersonalizzata.value.trim();
-        categoria = 'PERSONALIZZATO';
-        sottocategoria = 'PERSONALIZZATO';
-        console.log('✅ Usando descrizione personalizzata:', descrizione);
-    } else {
-        // USA SELEZIONE DAI MENU
-        categoria = categoriaSelect.value;
-        sottocategoria = sottocategoriaSelect.value;
-        descrizione = descrizioneSelect.options[descrizioneSelect.selectedIndex].text;
-        console.log('✅ Usando selezione menu:', descrizione);
+    let unitaMisura = document.getElementById('unitaMisura').value;
+    if (unitaMisura === 'custom') {
+        unitaMisura = document.getElementById('unitaMisuraCustom').value.trim();
     }
     
-    // Ottieni valori sempre necessari
-    const quantita = parseFloat(quantitaInput.value);
-    const prezzoUnitario = parseFloat(prezzoUnitarioInput.value);
-    const unita = unitaMisuraSelect.value === 'custom' ? unitaMisuraCustom.value : unitaMisuraSelect.value;
-    const sconto = parseFloat(scontoInput.value) || 0;
+    if (quantita <= 0 || prezzoUnitario <= 0) {
+        alert('Quantità e prezzo unitario devono essere maggiori di zero');
+        return;
+    }
     
-    // Calcola importo
-    const importoLordo = quantita * prezzoUnitario;
-    const importoSconto = (importoLordo * sconto) / 100;
-    const importoNetto = importoLordo - importoSconto;
+    const importoTotale = quantita * prezzoUnitario * (1 - sconto / 100);
     
-    // Crea oggetto voce
     const voce = {
-        id: Date.now(),
-        categoria: categoria,
-        sottocategoria: sottocategoria,
-        descrizione: descrizione,
-        quantita: quantita,
-        prezzoUnitario: prezzoUnitario,
-        unitaMisura: unita,
-        sconto: sconto,
-        importoNetto: importoNetto
+        descrizione,
+        unitaMisura: unitaMisura || '-',
+        quantita,
+        prezzoUnitario,
+        sconto,
+        importo: importoTotale
     };
     
-    console.log('✅ Voce creata:', voce);
-    
     vociPreventivo.push(voce);
-    console.log('📊 Voci totali:', vociPreventivo.length);
-    
     aggiornaTabella();
-    resetFormSelezione();
-    mostraMessaggio('Voce aggiunta con successo!', 'successo');
-}
-
-function resetFormSelezione() {
-    const categoriaSelect = document.getElementById('categoria');
-    const descrizionePersonalizzata = document.getElementById('descrizionePersonalizzata');
-    const quantitaInput = document.getElementById('quantita');
-    const prezzoUnitarioInput = document.getElementById('prezzoUnitario');
-    const scontoInput = document.getElementById('sconto');
-    const unitaMisuraSelect = document.getElementById('unitaMisura');
-    const unitaMisuraCustom = document.getElementById('unitaMisuraCustom');
-    
-    if (categoriaSelect) categoriaSelect.value = '';
-    if (descrizionePersonalizzata) descrizionePersonalizzata.value = '';
-    if (quantitaInput) quantitaInput.value = '';
-    if (prezzoUnitarioInput) prezzoUnitarioInput.value = '';
-    if (scontoInput) scontoInput.value = '0';
-    if (unitaMisuraSelect) unitaMisuraSelect.value = '';
-    if (unitaMisuraCustom) {
-        unitaMisuraCustom.value = '';
-        unitaMisuraCustom.classList.add('hidden');
-    }
-    
-    resetSottocategorieFields();
+    calcolaTotali();
+    pulisciCampiMateriali();
 }
 
 function aggiornaTabella() {
-    console.log('📊 Aggiornamento tabella con', vociPreventivo.length, 'voci');
+    const tbody = document.querySelector('#tabellaPreventivo tbody');
+    if (!tbody) return;
     
-    const tabellaBody = document.querySelector('#tabellaPreventivo tbody');
-    if (!tabellaBody) return;
-    
-    tabellaBody.innerHTML = '';
-    
-    if (vociPreventivo.length === 0) {
-        const row = tabellaBody.insertRow();
-        const cell = row.insertCell();
-        cell.colSpan = 7;
-        cell.className = 'tabella-vuota';
-        cell.textContent = 'Nessuna voce inserita nel preventivo';
-        aggiornaTotali();
-        return;
-    }
+    tbody.innerHTML = '';
     
     vociPreventivo.forEach((voce, index) => {
-        const row = tabellaBody.insertRow();
-        
-        row.insertCell().textContent = voce.descrizione;
-        row.insertCell().textContent = voce.unitaMisura;
-        row.insertCell().textContent = voce.quantita.toFixed(2);
-        row.insertCell().textContent = formatCurrency(voce.prezzoUnitario); // FORMATTAZIONE CORRETTA
-        row.insertCell().textContent = voce.sconto.toFixed(1) + '%';
-        row.insertCell().textContent = formatCurrency(voce.importoNetto); // FORMATTAZIONE CORRETTA
-        
-        const cellAzioni = row.insertCell();
-        const btnElimina = document.createElement('button');
-        btnElimina.textContent = 'Elimina';
-        btnElimina.className = 'btn-elimina';
-        btnElimina.onclick = () => eliminaVoce(voce.id);
-        cellAzioni.appendChild(btnElimina);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${voce.descrizione}</td>
+            <td>${voce.unitaMisura}</td>
+            <td>${voce.quantita}</td>
+            <td>${formatCurrency(voce.prezzoUnitario)}</td>
+            <td>${voce.sconto}%</td>
+            <td>${formatCurrency(voce.importo)}</td>
+            <td>
+                <button class="btn btn--danger" onclick="rimuoviVoce(${index})">🗑️</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
     });
-    
-    aggiornaTotali();
 }
 
-function eliminaVoce(id) {
-    if (confirm('Sei sicuro di voler eliminare questa voce?')) {
-        vociPreventivo = vociPreventivo.filter(voce => voce.id !== id);
-        aggiornaTabella();
-        mostraMessaggio('Voce eliminata', 'successo');
-    }
+function rimuoviVoce(index) {
+    vociPreventivo.splice(index, 1);
+    aggiornaTabella();
+    calcolaTotali();
 }
 
-function getPercentualeIva() {
-    const includiIvaCheck = document.getElementById('includiIva');
-    if (!includiIvaCheck || !includiIvaCheck.checked) return 0;
+function calcolaTotali() {
+    const totaleImponibile = vociPreventivo.reduce((sum, voce) => sum + voce.importo, 0);
+const includiIva = document.getElementById('includiIva').checked;
+    let totaleFinale = totaleImponibile;
     
-    const percentualeIvaSelect = document.getElementById('percentualeIva');
-    const ivaCustomInput = document.getElementById('ivaCustom');
-    
-    if (!percentualeIvaSelect) return 0;
-    
-    if (percentualeIvaSelect.value === 'custom' && ivaCustomInput) {
-        return parseFloat(ivaCustomInput.value) || 0;
-    }
-    
-    return parseFloat(percentualeIvaSelect.value) || 0;
-}
-
-// AGGIORNAMENTO TOTALI CON FORMATTAZIONE CORRETTA
-function aggiornaTotali() {
-    let totaleImponibile = 0;
-    
-    for (let i = 0; i < vociPreventivo.length; i++) {
-        const voce = vociPreventivo[i];
-        const importo = Number(voce.importoNetto) || 0;
-        totaleImponibile += importo;
-    }
-    
-    const percentualeIva = getPercentualeIva();
-    const totaleIva = (totaleImponibile * percentualeIva) / 100;
-    const totaleFinale = totaleImponibile + totaleIva;
-    
-    console.log('💰 Calcolo totali:', {
-        imponibile: totaleImponibile,
-        percentualeIva: percentualeIva,
-        iva: totaleIva,
-        finale: totaleFinale
-    });
-    
-    const totaleImponibileSpan = document.getElementById('totaleImponibile');
-    const totaleIvaSpan = document.getElementById('totaleIva');
-    const totaleFinaleSpan = document.getElementById('totaleFinale');
-    const labelPercentualeIva = document.getElementById('labelPercentualeIva');
-    
-    // APPLICA FORMATTAZIONE CON SPAZIO - FIX CRITICO
-    if (totaleImponibileSpan) totaleImponibileSpan.textContent = formatCurrency(totaleImponibile);
-    if (totaleIvaSpan) totaleIvaSpan.textContent = formatCurrency(totaleIva);
-    if (totaleFinaleSpan) totaleFinaleSpan.textContent = formatCurrency(totaleFinale);
-    if (labelPercentualeIva) labelPercentualeIva.textContent = percentualeIva.toFixed(1);
-}
-
-function mostraAnteprima() {
-    console.log('👁 Mostra anteprima - voci:', vociPreventivo.length);
-    
-    if (vociPreventivo.length === 0) {
-        mostraMessaggio('Aggiungi almeno una voce al preventivo', 'errore');
-        return;
-    }
-    
-    const nomeCliente = document.getElementById('nomeCliente');
-    if (!nomeCliente || !nomeCliente.value.trim()) {
-        mostraMessaggio('Inserisci il nome del cliente', 'errore');
-        return;
-    }
-    
-    const modal = document.getElementById('anteprimaModal');
-    const contenuto = document.getElementById('anteprimaContenuto');
-    
-    if (modal && contenuto) {
-        contenuto.innerHTML = generaAnteprimaHTML();
-        modal.classList.remove('hidden');
-        console.log('✅ Modal anteprima mostrato');
-    } else {
-        console.error('❌ Modal o contenuto anteprima non trovato');
-    }
-}
-
-// GENERA HTML ANTEPRIMA CON IMMAGINI BASE64 REALI E FORMATTAZIONE CORRETTA
-function generaAnteprimaHTML() {
-    // Ottieni tutti i valori dai campi
-    const nomeDitta = document.getElementById('nomeDitta').value || 'IL MATTONCINO S.R.L.';
-    const indirizzoAzienda = document.getElementById('indirizzoAzienda').value || '';
-    const telefonoAzienda = document.getElementById('telefonoAzienda').value || '';
-    const emailAzienda = document.getElementById('emailAzienda').value || '';
-    const partitaIva = document.getElementById('partitaIva').value || '';
-    
-    const nomeCliente = document.getElementById('nomeCliente').value || '';
-    const indirizzoCliente = document.getElementById('indirizzoCliente').value || '';
-    const telefonoCliente = document.getElementById('telefonoCliente').value || '';
-    const emailCliente = document.getElementById('emailCliente').value || '';
-    const cfPivaCliente = document.getElementById('cfPivaCliente').value || '';
-    
-    const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO LAVORI EDILI';
-    const notePreventivo = document.getElementById('notePreventivo').value || '';
-    const validita = document.getElementById('validita').value || '30';
-    const luogoData = document.getElementById('luogoData').value;
-    const numPreventivo = document.getElementById('numeroPreventivo').value;
-    
-    const modalitaPagamentoSelect = document.getElementById('modalitaPagamento');
-    const pagamentoCustom = document.getElementById('pagamentoCustom');
-    const modalitaPagamento = modalitaPagamentoSelect && modalitaPagamentoSelect.value === 'custom' ? 
-        (pagamentoCustom ? pagamentoCustom.value : '') : 
-        (modalitaPagamentoSelect ? modalitaPagamentoSelect.options[modalitaPagamentoSelect.selectedIndex].text : '');
-    
-    // Calcoli con formattazione corretta
-    let totaleImponibile = 0;
-    for (let voce of vociPreventivo) {
-        totaleImponibile += Number(voce.importoNetto) || 0;
-    }
-    
-    const percentualeIva = getPercentualeIva();
-    const totaleIva = (totaleImponibile * percentualeIva) / 100;
-    const totaleFinale = totaleImponibile + totaleIva;
-    
-    let html = `
-        <div class="anteprima-header">
-            <div class="anteprima-logo">
-                <img src="data:image/jpeg;base64,${LOGO_BASE64}" alt="IL MATTONCINO Logo" style="max-width: 200px; height: auto;" />
-            </div>
-            <h1>${nomeDitta}</h1>
-            <div class="preventivo-title">${titoloPreventivo}</div>
-            <p><strong>PREVENTIVO N. ${numPreventivo}</strong></p>
-            <p><strong>Luogo e data:</strong> ${luogoData}</p>
-        </div>
-        
-        <div class="anteprima-section">
-            <h3>Dati Azienda</h3>
-            <div class="anteprima-dati">
-                <div class="anteprima-campo"><strong>Nome Ditta:</strong> ${nomeDitta}</div>
-                ${indirizzoAzienda ? `<div class="anteprima-campo"><strong>Indirizzo:</strong> ${indirizzoAzienda}</div>` : ''}
-                ${telefonoAzienda ? `<div class="anteprima-campo"><strong>Telefono:</strong> ${telefonoAzienda}</div>` : ''}
-                ${emailAzienda ? `<div class="anteprima-campo"><strong>Email:</strong> ${emailAzienda}</div>` : ''}
-                ${partitaIva ? `<div class="anteprima-campo"><strong>P.IVA:</strong> ${partitaIva}</div>` : ''}
-            </div>
-        </div>
-        
-        <div class="anteprima-section">
-            <h3>Dati Cliente</h3>
-            <div class="anteprima-dati">
-                ${nomeCliente ? `<div class="anteprima-campo"><strong>Nome/Ragione Sociale:</strong> ${nomeCliente}</div>` : ''}
-                ${indirizzoCliente ? `<div class="anteprima-campo"><strong>Indirizzo:</strong> ${indirizzoCliente}</div>` : ''}
-                ${telefonoCliente ? `<div class="anteprima-campo"><strong>Telefono:</strong> ${telefonoCliente}</div>` : ''}
-                ${emailCliente ? `<div class="anteprima-campo"><strong>Email:</strong> ${emailCliente}</div>` : ''}
-                ${cfPivaCliente ? `<div class="anteprima-campo"><strong>CF/P.IVA:</strong> ${cfPivaCliente}</div>` : ''}
-            </div>
-        </div>
-        
-        <div class="anteprima-section">
-            <h3>Dettaglio Lavori</h3>
-            <table class="anteprima-table">
-                <thead>
-                    <tr>
-                        <th>Descrizione</th>
-                        <th>U.M.</th>
-                        <th class="text-right">Qtà</th>
-                        <th class="text-right">Prezzo Unit.</th>
-                        <th class="text-right">Sconto %</th>
-                        <th class="text-right">Importo</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-    
-    vociPreventivo.forEach(voce => {
-        html += `
-                    <tr>
-                        <td>${voce.descrizione}</td>
-                        <td>${voce.unitaMisura}</td>
-                        <td class="text-right">${parseFloat(voce.quantita).toFixed(2)}</td>
-                        <td class="text-right">${formatCurrency(voce.prezzoUnitario)}</td>
-                        <td class="text-right">${parseFloat(voce.sconto).toFixed(1)}%</td>
-                        <td class="text-right">${formatCurrency(voce.importoNetto)}</td>
-                    </tr>`;
-    });
-    
-    html += `
-                </tbody>
-            </table>
-            
-            <div class="totals-section">
-                <div class="totals-row">Totale Imponibile: <strong>${formatCurrency(totaleImponibile)}</strong></div>`;
-    
-    if (getPercentualeIva() > 0) {
-        html += `<div class="totals-row">IVA ${percentualeIva.toFixed(1)}%: <strong>${formatCurrency(totaleIva)}</strong></div>`;
-    }
-    
-    html += `
-                <div class="totals-row total-final">TOTALE FINALE: <strong>${formatCurrency(totaleFinale)}</strong></div>
-            </div>
-        </div>`;
-    
-    if (notePreventivo) {
-        html += `
-        <div class="anteprima-section">
-            <h3>Note</h3>
-            <p>${notePreventivo.replace(/\n/g, '<br>')}</p>
-        </div>`;
-    }
-    
-    html += `
-        <div class="anteprima-section">
-            <div class="anteprima-dati">
-                <div class="anteprima-campo"><strong>Validità del preventivo:</strong> ${validita} giorni dalla data di emissione</div>
-                <div class="anteprima-campo"><strong>Modalità di pagamento:</strong> ${modalitaPagamento}</div>
-            </div>
-        </div>
-        
-        <div class="anteprima-footer">
-            <div class="firma-cliente">
-                <h4>Firma per presa visione e accettazione:</h4>
-                <div class="firma-line"></div>
-            </div>
-            <div class="timbro-section">
-                <img src="data:image/jpeg;base64,${TIMBRO_BASE64}" alt="Timbro" class="timbro-image" />
-            </div>
-        </div>`;
-    
-    return html;
-}
-
-function chiudiAnteprima() {
-    const modal = document.getElementById('anteprimaModal');
-    if (modal) {
-        modal.classList.add('hidden');
-    }
-}
-
-// SCARICA PDF FUNZIONANTE CON jsPDF + html2canvas
-async function scaricaPDF() {
-    if (vociPreventivo.length === 0) {
-        mostraMessaggio('Aggiungi almeno una voce al preventivo', 'errore');
-        return;
-    }
-    
-    const nomeCliente = document.getElementById('nomeCliente');
-    if (!nomeCliente || !nomeCliente.value.trim()) {
-        mostraMessaggio('Inserisci il nome del cliente', 'errore');
-        return;
-    }
-    
-    try {
-        console.log('📱 Inizio generazione PDF...');
-        mostraMessaggio('Generazione PDF in corso...', 'avviso');
-        
-        // Apri anteprima se non è già aperta
-        const modal = document.getElementById('anteprimaModal');
-        const contenuto = document.getElementById('anteprimaContenuto');
-        
-        if (modal && contenuto) {
-            contenuto.innerHTML = generaAnteprimaHTML();
-            modal.classList.remove('hidden');
+    if (includiIva) {
+        let percentuale = parseFloat(document.getElementById('percentualeIva').value);
+        if (isNaN(percentuale)) {
+            percentuale = parseFloat(document.getElementById('ivaCustom').value) || 0;
         }
         
-        // Attendi rendering
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const elemento = document.getElementById('anteprimaContenuto');
-        if (!elemento) {
-            throw new Error('Elemento anteprima non trovato');
-        }
-        
-        // Configura html2canvas
-        const canvas = await html2canvas(elemento, {
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#FFFFFF',
-            width: elemento.scrollWidth,
-            height: elemento.scrollHeight
-        });
-        
-        // Crea PDF con jsPDF
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4'
-        });
-        
-        const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 210; // A4 width in mm
-        const pageHeight = 295; // A4 height in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
-        
-        // Aggiungi prima pagina
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-        
-        // Aggiungi pagine aggiuntive se necessario
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-        }
-        
-        // Nome file con data e cliente
-        const oggi = new Date();
-        const dataFile = oggi.toISOString().slice(0, 10);
-        const nomeFile = `Preventivo_${nomeCliente.value.replace(/[^a-zA-Z0-9]/g, '_')}_${dataFile}.pdf`;
-        
-        // Salva PDF
-        pdf.save(nomeFile);
-        
-        console.log('✅ PDF generato con successo:', nomeFile);
-        mostraMessaggio('PDF scaricato con successo!', 'successo');
-        
-        // Chiudi modal dopo un momento
-        setTimeout(() => {
-            if (modal) modal.classList.add('hidden');
-        }, 1000);
-        
-    } catch (error) {
-        console.error('❌ Errore generazione PDF:', error);
-        mostraMessaggio('Errore durante la generazione del PDF: ' + error.message, 'errore');
+        const importoIva = totaleImponibile * (percentuale / 100);
+        totaleFinale = totaleImponibile + importoIva;
+document.getElementById('totaleIva').textContent = formatCurrency(importoIva);
     }
 }
 
-// STAMPA OTTIMIZZATA
-function stampaPreventivo() {
-    if (vociPreventivo.length === 0) {
-        mostraMessaggio('Aggiungi almeno una voce al preventivo', 'errore');
-        return;
-    }
-    
-    const nomeCliente = document.getElementById('nomeCliente');
-    if (!nomeCliente || !nomeCliente.value.trim()) {
-        mostraMessaggio('Inserisci il nome del cliente', 'errore');
-        return;
-    }
-    
-    console.log('🖨 Stampa preventivo...');
-    mostraAnteprima();
-    
-    setTimeout(() => {
-        window.print();
-    }, 500);
+function pulisciCampiMateriali() {
+document.getElementById('quantita').value = '';
+document.getElementById('sconto').value = '0';
+resetSottocategorieFields();
 }
 
 function nuovoPreventivo() {
     if (vociPreventivo.length > 0) {
-        if (!confirm('Sei sicuro di voler creare un nuovo preventivo? Tutti i dati attuali andranno persi.')) {
+        if (!confirm('Sei sicuro di voler creare un nuovo preventivo? I dati attuali verranno persi.')) {
             return;
         }
     }
     
-    // Reset campi cliente e preventivo
-    const campiDaResettare = [
-        'titoloPreventivo', 'nomeCliente', 'indirizzoCliente', 
-        'telefonoCliente', 'emailCliente', 'cfPivaCliente', 'validita'
-    ];
-    
-    campiDaResettare.forEach(id => {
-        const campo = document.getElementById(id);
-        if (campo) campo.value = '';
-    });
-    
-    // Reset note con il testo CORRETTO (€37,00)
-    const notePreventivo = document.getElementById('notePreventivo');
-    if (notePreventivo) {
-        notePreventivo.value = 'Eventuali ore in economia saranno contabilizzate al costo orario di € 37,00. Sono esclusi dal preventivo IVA, acqua ed energia elettrica.';
-    }
-    
-    const validitaInput = document.getElementById('validita');
-    if (validitaInput) validitaInput.value = '30';
-    
-    // Reset selezioni
-    resetFormSelezione();
-    
-    const modalitaPagamentoSelect = document.getElementById('modalitaPagamento');
-    const pagamentoCustom = document.getElementById('pagamentoCustom');
-    if (modalitaPagamentoSelect) modalitaPagamentoSelect.value = 'rimessa diretta';
-    if (pagamentoCustom) {
-        pagamentoCustom.classList.add('hidden');
-        pagamentoCustom.value = '';
-    }
-    
-    // Reset IVA
-    const includiIvaCheck = document.getElementById('includiIva');
-    const ivaSettings = document.getElementById('ivaSettings');
-    const rigaIva = document.getElementById('rigaIva');
-    const percentualeIvaSelect = document.getElementById('percentualeIva');
-    const ivaCustomInput = document.getElementById('ivaCustom');
-    
-    if (includiIvaCheck) includiIvaCheck.checked = false;
-    if (ivaSettings) ivaSettings.classList.add('hidden');
-    if (rigaIva) rigaIva.classList.add('hidden');
-    if (percentualeIvaSelect) percentualeIvaSelect.value = '22';
-    if (ivaCustomInput) {
-        ivaCustomInput.classList.add('hidden');
-        ivaCustomInput.value = '';
-    }
-    
-    // Reset dati
     vociPreventivo = [];
-    aggiornaTabella();
-    
-    // Nuovo numero preventivo
     contatorePrevenetivo++;
-    const numeroPreventivo = document.getElementById('numeroPreventivo');
-    if (numeroPreventivo) {
-        numeroPreventivo.value = String(contatorePrevenetivo).padStart(3, '0');
-    }
-    
-    // Imposta luogo e data odierna
-    impostaLuogoDataOggi();
-    
-    console.log('📄 Nuovo preventivo creato');
-    mostraMessaggio('Nuovo preventivo creato', 'successo');
+document.getElementById('nomeCliente').value = '';
+document.getElementById('telefonoCliente').value = '';
+document.getElementById('cfPivaCliente').value = '';
+aggiornaTabella();
+    calcolaTotali();
+    impostaDataOggi();
+    pulisciCampiMateriali();
 }
 
-function mostraMessaggio(testo, tipo) {
-    const messaggiEsistenti = document.querySelectorAll('.messaggio');
-    messaggiEsistenti.forEach(msg => msg.remove());
+// Funzione per visualizzare anteprima preventivo online
+function anteprimaPreventivo() {
+    const nomeCliente = document.getElementById('nomeCliente').value.trim();
+    if (!nomeCliente) {
+        alert('Inserisci il nome del cliente');
+        return;
+    }
     
-    const messaggio = document.createElement('div');
-    messaggio.className = `messaggio ${tipo}`;
-    messaggio.textContent = testo;
+    if (vociPreventivo.length === 0) {
+        alert('Aggiungi almeno una voce al preventivo');
+        return;
+    }
     
-    const header = document.querySelector('.app-header');
-    if (header) {
-        header.insertAdjacentElement('afterend', messaggio);
+    // Recupera tutti i dati
+    const indirizzoAzienda = document.getElementById('indirizzoAzienda').value;
+    const telefonoAzienda = document.getElementById('telefonoAzienda').value;
+    const emailAzienda = document.getElementById('emailAzienda').value;
+    const partitaIva = document.getElementById('partitaIva').value;
+    const numeroPreventivo = document.getElementById('numeroPreventivo').value;
+    const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO LAVORI EDILI';
+    const indirizzoCliente = document.getElementById('indirizzoCliente').value;
+    const telefonoCliente = document.getElementById('telefonoCliente').value;
+    const emailCliente = document.getElementById('emailCliente').value;
+    const cfPivaCliente = document.getElementById('cfPivaCliente').value;
+    const notePreventivo = document.getElementById('notePreventivo').value;
+    const validita = document.getElementById('validita').value;
+    
+    let modalitaPagamento = document.getElementById('modalitaPagamento').value;
+    if (modalitaPagamento === 'custom') {
+        modalitaPagamento = document.getElementById('pagamentoCustom').value;
+    }
+    
+    // Formatta data
+    const dataInput = document.getElementById('dataPreventivo').value;
+    const dataObj = new Date(dataInput);
+    const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dataFormattata = dataObj.toLocaleDateString('it-IT', opzioni);
+    const luogoData = `Imola, ${dataFormattata}`;
+    
+    // Genera HTML per l'anteprima
+    const htmlAnteprima = `
+        <!DOCTYPE html>
+        <html lang="it">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Anteprima Preventivo N° ${numeroPreventivo}</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    max-width: 800px;
+                    margin: 40px auto;
+                    padding: 40px;
+                    background: white;
+                    color: #000;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+                .header img {
+                    max-width: 400px;
+                    height: auto;
+                    margin-bottom: 15px;
+                }
+                .header p {
+                    margin: 5px 0;
+                    font-size: 12px;
+                }
+                .title-section {
+                    text-align: center;
+                    margin: 30px 0;
+                }
+                .title-section h2 {
+                    font-size: 20px;
+                    color: #1F3E7C;
+                    margin-bottom: 10px;
+                }
+                .title-section p {
+                    font-size: 12px;
+                }
+                .client-box {
+                    margin: 25px 0;
+                    padding: 15px;
+                    background: #f5f5f5;
+                    border-radius: 5px;
+                }
+                .client-box h3 {
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    color: #1F3E7C;
+                }
+                .client-box p {
+                    margin: 3px 0;
+                    font-size: 12px;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-size: 11px;
+                }
+                thead {
+                    background: #1F3E7C;
+                    color: white;
+                }
+                th, td {
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    word-wrap: break-word;
+                    white-space: normal;
+                }
+                th {
+                    text-align: left;
+                }
+                .text-center { text-align: center; }
+                .text-right { text-align: right; }
+                .totals {
+                    margin: 25px 0;
+                    text-align: right;
+                    font-size: 13px;
+                }
+                .totals p {
+                    margin: 8px 0;
+                }
+                .total-final {
+                    font-size: 16px;
+                    color: #1F3E7C;
+                    margin: 12px 0;
+                }
+                .notes-box {
+                    margin: 25px 0;
+                    padding: 15px;
+                    background: #f9f9f9;
+                    border-left: 3px solid #1F3E7C;
+                    font-size: 11px;
+                }
+                .notes-box p {
+                    margin: 5px 0;
+                }
+                .footer {
+                    margin-top: 50px;
+                    margin-bottom: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                }
+                .signature {
+                    text-align: left;
+                }
+                .signature p {
+                    margin-bottom: 60px;
+                    font-size: 11px;
+                }
+                .signature-line {
+                    border-bottom: 1px solid #000;
+                    width: 200px;
+                    margin-top: -40px;
+                }
+                .stamp {
+                    text-align: right;
+                    margin-top: 20px;
+                }
+                .stamp img {
+                    max-width: 180px;
+                    height: auto;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <img src="LOGO.jpg" alt="ARTIGIANO DEMO" />
+                <p>${indirizzoAzienda}</p>
+                <p>Tel: ${telefonoAzienda} | Email: ${emailAzienda}</p>
+                <p>P.IVA: ${partitaIva}</p>
+            </div>
+            
+            <div class="title-section">
+                <h2>${titoloPreventivo}</h2>
+                <p>Preventivo N° ${numeroPreventivo}</p>
+                <p>${luogoData}</p>
+            </div>
+            
+            <div class="client-box">
+                <h3>CLIENTE</h3>
+                <p><strong>${nomeCliente}</strong></p>
+                ${indirizzoCliente ? `<p>${indirizzoCliente}</p>` : ''}
+                ${telefonoCliente ? `<p>Tel: ${telefonoCliente}</p>` : ''}
+                ${emailCliente ? `<p>Email: ${emailCliente}</p>` : ''}
+                ${cfPivaCliente ? `<p>CF/P.IVA: ${cfPivaCliente}</p>` : ''}
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrizione</th>
+                        <th class="text-center">U.M.</th>
+                        <th class="text-center">Qtà</th>
+                        <th class="text-right">Prezzo Unit.</th>
+                        <th class="text-center">Sconto %</th>
+                        <th class="text-right">Importo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${vociPreventivo.map(voce => `
+                        <tr>
+                            <td>${voce.descrizione}</td>
+                            <td class="text-center">${voce.unitaMisura}</td>
+                            <td class="text-center">${voce.quantita}</td>
+                            <td class="text-right">${formatCurrency(voce.prezzoUnitario)}</td>
+                            <td class="text-center">${voce.sconto}%</td>
+                            <td class="text-right">${formatCurrency(voce.importo)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <div class="totals">
+                <p><strong>Totale Imponibile: ${document.getElementById('totaleImponibile').textContent}</strong></p>
+                ${document.getElementById('includiIva').checked ? `
+                    <p><strong>IVA ${document.getElementById('labelPercentualeIva').textContent}%: ${document.getElementById('totaleIva').textContent}</strong></p>
+                ` : ''}
+                <p class="total-final"><strong>TOTALE FINALE: ${document.getElementById('totaleFinale').textContent}</strong></p>
+            </div>
+            
+            <div class="notes-box">
+                <p><strong>Modalità di Pagamento:</strong> ${modalitaPagamento}</p>
+                <p><strong>Validità:</strong> ${validita} giorni</p>
+                ${notePreventivo ? `<p style="margin-top: 10px;"><strong>Note:</strong></p><p>${notePreventivo}</p>` : ''}
+            </div>
+            
+            <div class="footer">
+                <div class="signature">
+                    <p>Firma per presa visione ed accettazione</p>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="stamp">
+                    <img src="TIMBRO.jpg" alt="Timbro" />
+                </div>
+            </div>
+        </body>
+        </html>
+    `;
+    
+    // Apri l'anteprima in una nuova finestra
+    const anteprimaWindow = window.open('', '_blank');
+    anteprimaWindow.document.write(htmlAnteprima);
+    anteprimaWindow.document.close();
+}
+
+// Funzione corretta per generare PDF con logo e timbro
+async function generaPDF() {
+    const nomeCliente = document.getElementById('nomeCliente').value.trim();
+    if (!nomeCliente) {
+        alert('Inserisci il nome del cliente');
+        return;
+    }
+    
+    if (vociPreventivo.length === 0) {
+        alert('Aggiungi almeno una voce al preventivo');
+        return;
+    }
+    
+    console.log('📄 Generazione PDF in corso...');
+    
+    try {
+        // Crea contenitore per PDF
+        const pdfContainer = document.createElement('div');
+        pdfContainer.style.cssText = `
+            position: absolute;
+            left: -9999px;
+            width: 794px;
+            background: white;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            color: #000;
+        `;
         
-        setTimeout(() => {
-            if (messaggio.parentNode) {
-                messaggio.remove();
-            }
-        }, 4000);
+        // Recupera dati
+        const nomeDitta = document.getElementById('nomeDitta').value;
+        const indirizzoAzienda = document.getElementById('indirizzoAzienda').value;
+        const telefonoAzienda = document.getElementById('telefonoAzienda').value;
+        const emailAzienda = document.getElementById('emailAzienda').value;
+        const partitaIva = document.getElementById('partitaIva').value;
+        const numeroPreventivo = document.getElementById('numeroPreventivo').value;
+        const titoloPreventivo = document.getElementById('titoloPreventivo').value || 'PREVENTIVO LAVORI EDILI';
+        const indirizzoCliente = document.getElementById('indirizzoCliente').value;
+        const telefonoCliente = document.getElementById('telefonoCliente').value;
+        const emailCliente = document.getElementById('emailCliente').value;
+        const cfPivaCliente = document.getElementById('cfPivaCliente').value;
+        const notePreventivo = document.getElementById('notePreventivo').value;
+        const validita = document.getElementById('validita').value;
+        
+        let modalitaPagamento = document.getElementById('modalitaPagamento').value;
+        if (modalitaPagamento === 'custom') {
+            modalitaPagamento = document.getElementById('pagamentoCustom').value;
+        }
+        
+        // Formatta data
+        const dataInput = document.getElementById('dataPreventivo').value;
+        const dataObj = new Date(dataInput);
+        const opzioni = { year: 'numeric', month: 'long', day: 'numeric' };
+        const dataFormattata = dataObj.toLocaleDateString('it-IT', opzioni);
+        const luogoData = `Imola, ${dataFormattata}`;
+        
+        // Costruisci HTML del PDF
+        pdfContainer.innerHTML = `
+            <div style="margin-bottom: 30px; text-align: center;">
+                <img src="LOGO.jpg" style="max-width: 400px; height: auto; margin-bottom: 15px;" />
+                <p style="margin: 5px 0; font-size: 12px;">${indirizzoAzienda}</p>
+                <p style="margin: 5px 0; font-size: 12px;">Tel: ${telefonoAzienda} | Email: ${emailAzienda}</p>
+                <p style="margin: 5px 0; font-size: 12px;">P.IVA: ${partitaIva}</p>
+            </div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <h2 style="font-size: 20px; color: #1F3E7C; margin-bottom: 10px;">${titoloPreventivo}</h2>
+                <p style="font-size: 12px;">Preventivo N° ${numeroPreventivo}</p>
+                <p style="font-size: 12px;">${luogoData}</p>
+            </div>
+            
+            <div style="margin: 25px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+                <h3 style="font-size: 14px; margin-bottom: 10px; color: #1F3E7C;">CLIENTE</h3>
+                <p style="margin: 3px 0; font-size: 12px;"><strong>${nomeCliente}</strong></p>
+                ${indirizzoCliente ? `<p style="margin: 3px 0; font-size: 11px;">${indirizzoCliente}</p>` : ''}
+                ${telefonoCliente ? `<p style="margin: 3px 0; font-size: 11px;">Tel: ${telefonoCliente}</p>` : ''}
+                ${emailCliente ? `<p style="margin: 3px 0; font-size: 11px;">Email: ${emailCliente}</p>` : ''}
+                ${cfPivaCliente ? `<p style="margin: 3px 0; font-size: 11px;">CF/P.IVA: ${cfPivaCliente}</p>` : ''}
+            </div>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 11px;">
+                <thead>
+                    <tr style="background: #1F3E7C; color: white;">
+                        <th style="padding: 8px; text-align: left; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Descrizione</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">U.M.</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Qtà</th>
+                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Prezzo Unit.</th>
+                        <th style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Sconto %</th>
+                        <th style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">Importo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${vociPreventivo.map(voce => `
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.descrizione}</td>
+                            <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.unitaMisura}</td>
+                            <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.quantita}</td>
+                            <td style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${formatCurrency(voce.prezzoUnitario)}</td>
+                            <td style="padding: 8px; text-align: center; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${voce.sconto}%</td>
+                            <td style="padding: 8px; text-align: right; border: 1px solid #ddd; word-wrap: break-word; white-space: normal;">${formatCurrency(voce.importo)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <div style="margin: 25px 0; text-align: right; font-size: 13px;">
+                <p style="margin: 8px 0;"><strong>Totale Imponibile: ${document.getElementById('totaleImponibile').textContent}</strong></p>
+                ${document.getElementById('includiIva').checked ? `
+                    <p style="margin: 8px 0;"><strong>IVA ${document.getElementById('labelPercentualeIva').textContent}%: ${document.getElementById('totaleIva').textContent}</strong></p>
+                ` : ''}
+                <p style="margin: 12px 0; font-size: 16px; color: #1F3E7C;"><strong>TOTALE FINALE: ${document.getElementById('totaleFinale').textContent}</strong></p>
+            </div>
+            
+            <div style="margin: 25px 0; padding: 15px; background: #f9f9f9; border-left: 3px solid #1F3E7C; font-size: 11px;">
+                <p style="margin: 5px 0;"><strong>Modalità di Pagamento:</strong> ${modalitaPagamento}</p>
+                <p style="margin: 5px 0;"><strong>Validità:</strong> ${validita} giorni</p>
+                ${notePreventivo ? `<p style="margin: 10px 0 5px 0;"><strong>Note:</strong></p><p style="margin: 5px 0;">${notePreventivo}</p>` : ''}
+            </div>
+            
+            <div style="margin-top: 50px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="text-align: left;">
+                    <p style="margin-bottom: 60px; font-size: 11px;">Firma per presa visione ed accettazione</p>
+                    <div style="border-bottom: 1px solid #000; width: 200px; margin-top: -40px;"></div>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <img src="TIMBRO.jpg" style="max-width: 180px; height: auto;" />
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(pdfContainer);
+        
+        // Genera PDF con html2canvas e jsPDF
+        const canvas = await html2canvas(pdfContainer, {
+            scale: 2,
+            useCORS: true,
+            logging: false
+        });
+        
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const imgWidth = 210;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        
+        pdf.save(`Preventivo_${numeroPreventivo}_${nomeCliente.replace(/\s+/g, '_')}.pdf`);
+        
+        document.body.removeChild(pdfContainer);
+        
+        console.log('✅ PDF generato con successo!');
+        alert('PDF generato con successo!');
+        
+    } catch (error) {
+        console.error('Errore generazione PDF:', error);
+        alert('Errore durante la generazione del PDF. Riprova.');
     }
 }
 
-// 🌙 TUTTI I BUGS RISOLTI - APPLICAZIONE 100% FUNZIONALE COMPLETATA
-console.log('🌙 IL MATTONCINO S.R.L. - APPLICAZIONE 100% FUNZIONALE PRONTA!');
-console.log('✅ Descrizione personalizzata INDIPENDENTE');
-console.log('✅ Formattazione prezzi CORRETTA con spazio: € 1.234,56');
-console.log('✅ Immagini Base64 reali LOGO e TIMBRO VISUALIZZATE'); 
-console.log('✅ Download PDF con jsPDF FUNZIONANTE');
-console.log('✅ Stampa CSS OTTIMIZZATA');
-console.log('✅ Unità misura "a corpo" AGGIUNTA');
-console.log('✅ Database completo 28 voci principali');
-console.log('✅ Colori corporate #293A8A e #FEFEFE');
-console.log('🎯 OBIETTIVO: APPLICAZIONE 100% FUNZIONALE RAGGIUNTO!');
-
-// LOGIN DEMO
 const LOGIN_USER = "demo";
 const LOGIN_PASS = "demo123";
-
-document.getElementById("app").style.display = "none";
-document.getElementById("loginError").style.display = "none";
-
 function login() {
   const u = document.getElementById("username").value;
   const p = document.getElementById("password").value;
-
   if (u === LOGIN_USER && p === LOGIN_PASS) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("app").style.display = "block";
+} else {
+}
+}
+
+
+// --- Robust login initialization (appended by assistant) ---
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var loginError = document.getElementById('loginError');
+    var appEl = document.getElementById('app');
+    var loginBox = document.getElementById('loginBox');
+    if (loginError) loginError.style.display = 'none';
+    if (appEl) appEl.style.display = 'none';
+    if (loginBox) loginBox.style.display = 'block';
+  } catch (e) {
+    console.warn('Login init warning:', e);
+  }
+});
+
+function login() {
+  var LOGIN_USER = window.LOGIN_USER || "mattoncino";
+  var LOGIN_PASS = window.LOGIN_PASS || "mattoncino123";
+  // If this is the template, values may be overridden by window.LOGIN_USER/LOGIN_PASS set elsewhere.
+  var u = document.getElementById('username') ? document.getElementById('username').value : '';
+  var p = document.getElementById('password') ? document.getElementById('password').value : '';
+  var error = document.getElementById('loginError');
+  if (u === LOGIN_USER && p === LOGIN_PASS) {
+    if (document.getElementById('loginBox')) document.getElementById('loginBox').style.display = 'none';
+    if (document.getElementById('app')) document.getElementById('app').style.display = 'block';
+    if (error) error.style.display = 'none';
   } else {
-    document.getElementById("loginError").style.display = "block";
+    if (error) error.style.display = 'block';
   }
 }
+// --- End login block ---
+

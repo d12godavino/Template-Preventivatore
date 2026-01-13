@@ -2,20 +2,22 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Preventivatore Demo</title>
 <link rel="stylesheet" href="style.css">
+<script src="database.js"></script>
 </head>
 <body>
 
 <div id="loginBox">
-  <h2>Accesso al preventivatore</h2>
+  <h2>Accesso</h2>
   <input id="username" placeholder="Username">
   <input id="password" type="password" placeholder="Password">
   <button onclick="login()">Accedi</button>
   <p id="loginError">Credenziali errate</p>
 </div>
 
-<div id="app">
+<div id="app" style="display:none">
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -32,9 +34,8 @@
             <div class="header-content">
                 <div class="logo-section">
                     <div class="logo-container">
-                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCABkAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nnq4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Z" alt="IL MATTONCINO Logo" class="logo-image" />
+                        <img src="LOGO.jpg" alt="IL MATTONCINO S.R.L." class="company-logo">
                     </div>
-                    <h1>IL MATTONCINO S.R.L.</h1>
                     <p>Preventivatore Edile Professionale</p>
                 </div>
             </div>
@@ -108,11 +109,10 @@
             </div>
         </div>
 
-        <!-- Sezione Selezione Materiali - NUOVO LAYOUT -->
+        <!-- Sezione Selezione Materiali -->
         <div class="card section-card">
             <h2>AGGIUNGI MATERIALI/SERVIZI</h2>
             
-            <!-- RIGA 1: Selezioni -->
             <div class="materiali-row-1">
                 <div class="form-group">
                     <label class="form-label">Categoria</label>
@@ -139,7 +139,6 @@
                 </div>
             </div>
             
-            <!-- RIGA 2: Quantità e prezzi -->
             <div class="materiali-row-2">
                 <div class="form-group">
                     <label class="form-label">Quantità</label>
@@ -171,7 +170,6 @@
                 </div>
             </div>
             
-            <!-- RIGA 3: Pulsante centrato -->
             <div class="materiali-row-3">
                 <button id="aggiungiVoce" class="btn btn--primary btn--lg">
                     ➕ AGGIUNGI AL PREVENTIVO
@@ -200,7 +198,6 @@
                 </table>
             </div>
             
-            <!-- Gestione IVA -->
             <div class="iva-section">
                 <div class="iva-controls">
                     <label class="checkbox-container">
@@ -260,37 +257,24 @@
                     <input type="number" id="validita" class="form-control" value="30" min="1">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Luogo e Data</label>
-                    <input type="text" id="luogoData" class="form-control" readonly>
+                    <label class="form-label">Data Preventivo</label>
+                    <input type="date" id="dataPreventivo" class="form-control">
                 </div>
             </div>
-            
-            <div class="final-buttons">
-                <button id="anteprimaPreventivo" class="btn btn--secondary btn--lg">
-                    👁 ANTEPRIMA PREVENTIVO
-                </button>
-                <button id="scaricaPdf" class="btn btn--primary btn--lg">
-                    📱 SCARICA PDF
-                </button>
-                <button id="stampaPreventivo" class="btn btn--outline btn--lg">
-                    🖨 STAMPA
-                </button>
-                <button id="nuovoPreventivo" class="btn btn--outline btn--lg">
-                    📄 NUOVO PREVENTIVO
-                </button>
-            </div>
         </div>
-    </div>
 
-    <!-- Modal Anteprima -->
-    <div id="anteprimaModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header no-print">
-                <h2>Anteprima Preventivo</h2>
-                <button id="chiudiAnteprima" class="btn btn--outline">&times;</button>
-            </div>
-            <div id="anteprimaContenuto" class="modal-body preview-content">
-                <!-- Contenuto anteprima generato dinamicamente -->
+        <!-- Pulsanti Finali -->
+        <div class="card section-card">
+            <div class="button-row">
+                <button id="anteprimaPreventivo" class="btn btn--primary btn--lg">
+                    👁️ ANTEPRIMA
+                </button>
+                <button id="generaPDF" class="btn btn--primary btn--lg">
+                    📄 GENERA PDF
+                </button>
+                <button id="nuovoPreventivo" class="btn btn--secondary btn--lg">
+                    🔄 NUOVO PREVENTIVO
+                </button>
             </div>
         </div>
     </div>
@@ -298,6 +282,7 @@
     <script src="app.js"></script>
 </body>
 </html>
+
 </div>
 
 <script src="app.js"></script>
