@@ -65,7 +65,10 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">N° Preventivo</label>
-                    <input type="text" id="numeroPreventivo" class="form-control" value="001">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="numeroPreventivo" class="form-control" value="001" style="flex: 1;">
+                        <button type="button" class="btn btn--primary" onclick="nuovoPreventivo()" style="flex: 1; white-space: nowrap;">Nuovo Preventivo</button>
+                    </div>
                 </div>
             </div>
         </div>
