@@ -981,9 +981,33 @@ async function generaPDF() {
         const imgWidth = 210;
         const imgHeight = canvas.height * imgWidth / canvas.width;
         
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        
-        pdf.save(`Preventivo_${numeroPreventivo}_${nomeCliente.replace(/\s+/g, '_')}.pdf`);
+const imgData = canvas.toDataURL('image/png');
+const { jsPDF } = window.jspdf;
+
+const pdf = new jsPDF('p', 'mm', 'a4');
+
+const pageWidth = 210;
+const pageHeight = 297;
+
+const imgWidth = pageWidth;
+const imgHeight = canvas.height * imgWidth / canvas.width;
+
+let heightLeft = imgHeight;
+let position = 0;
+
+// Prima pagina
+pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+heightLeft -= pageHeight;
+
+// Pagine successive
+while (heightLeft > 0) {
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+}
+
+pdf.save(`Preventivo_${numeroPreventivo}_${nomeCliente.replace(/\s+/g, '_')}.pdf`);
         
         document.body.removeChild(pdfContainer);
         
